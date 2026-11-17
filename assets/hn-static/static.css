@@ -1,0 +1,118 @@
+/* HerNaqsh static demo: cart, checkout, demo page and contact links.
+   Uses the theme's palette variables (style.css :root). */
+
+.hn-static-banner {
+	background: var(--hn-blush);
+	color: var(--hn-plum);
+	border-radius: var(--hn-radius);
+	padding: .75em 1em;
+	font-size: .95em;
+	margin: 0 0 1.5em;
+}
+.hn-static-note {
+	font-size: .875em;
+	color: var(--hn-text);
+	margin: .75em 0 0;
+}
+
+/* Contact links instead of forms */
+.hn-static-contact {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .75em 1.25em;
+	align-items: center;
+	margin: 0 0 1.5em;
+}
+.hn-static-contact .hn-static-note { flex-basis: 100%; margin: 0; }
+.hn-static-contact a.is-placeholder,
+.hn-static-contact a[aria-disabled="true"] { cursor: default; }
+.hn-static-contact__mail { font-weight: 600; overflow-wrap: anywhere; }
+.dokan-store-contact .hn-static-contact { flex-direction: column; align-items: stretch; text-align: center; }
+
+/* Cart */
+#hn-cart table.cart img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
+#hn-cart .product-remove .remove {
+	background: none; border: 0; padding: 0 .25em; font-size: 1.6em; line-height: 1;
+	color: var(--hn-rose); cursor: pointer;
+}
+#hn-cart .product-remove .remove:hover { color: var(--hn-plum); }
+.hn-static-seller { display: block; font-size: .85em; color: var(--hn-text); margin-top: .2em; }
+.hn-static-qty { display: inline-flex; align-items: center; border: 1px solid var(--hn-border); border-radius: 999px; overflow: hidden; background: var(--hn-white); }
+.hn-static-qty button {
+	background: none; border: 0; color: var(--hn-plum); width: 2.2em; height: 2.2em;
+	font-size: 1.1em; line-height: 1; cursor: pointer; padding: 0;
+}
+.hn-static-qty button:hover { background: var(--hn-blush); }
+.hn-static-qty input.qty {
+	width: 3em; text-align: center; border: 0 !important; background: transparent; padding: 0 !important;
+	-moz-appearance: textfield; appearance: textfield; min-height: 0; box-shadow: none !important;
+}
+.hn-static-qty input.qty::-webkit-inner-spin-button,
+.hn-static-qty input.qty::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+#hn-cart .cart-collaterals { display: flex; justify-content: flex-end; margin-top: 2em; }
+#hn-cart .cart-collaterals .cart_totals { width: 100%; max-width: 440px; float: none; }
+#hn-cart .wc-proceed-to-checkout .button { display: block; width: 100%; text-align: center; }
+.hn-static-empty { text-align: center; padding: 2em 0; }
+
+/* Checkout */
+.hn-static-checkout .col2-set { margin-bottom: 2em; }
+.hn-static-checkout .form-row { margin-bottom: 1em; }
+.hn-static-checkout .form-row label { display: block; margin-bottom: .3em; font-weight: 500; }
+.hn-static-checkout .form-row input.input-text { width: 100%; }
+.hn-static-checkout .form-row.woocommerce-invalid input.input-text { border-color: #b3261e; }
+.hn-static-checkout .form-row-first,
+.hn-static-checkout .form-row-last { width: 48%; float: left; }
+.hn-static-checkout .form-row-last { float: right; }
+.hn-static-checkout .form-row-wide { clear: both; }
+.hn-static-checkout .woocommerce-billing-fields__field-wrapper::after { content: ""; display: table; clear: both; }
+.hn-static-checkout .wc_payment_methods { list-style: none; margin: 0 0 1em; padding: 0; }
+.hn-static-checkout .wc_payment_method { padding: .6em 0; border-bottom: 1px solid var(--hn-border); }
+.hn-static-checkout .wc_payment_method > label { font-weight: 600; margin-left: .4em; cursor: pointer; }
+.hn-static-checkout .payment_box { margin-top: .75em; }
+.hn-static-checkout #place_order { width: 100%; }
+/* The theme sizes the classic checkout columns with floats/widths; the demo uses a grid instead. */
+.woocommerce .hn-static-checkout .col2-set,
+.woocommerce .hn-static-checkout .col2-set .col-1,
+.woocommerce .hn-static-checkout #order_review,
+.woocommerce .hn-static-checkout #order_review_heading {
+	width: 100% !important; float: none !important; max-width: none; margin-left: 0; margin-right: 0;
+}
+@media (min-width: 922px) {
+	.hn-static-checkout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 3em; align-items: start; }
+	.hn-static-checkout .col2-set { grid-column: 1; grid-row: 1 / span 2; }
+	.hn-static-checkout #order_review_heading { grid-column: 2; grid-row: 1; }
+	.hn-static-checkout #order_review { grid-column: 2; grid-row: 2; }
+}
+@media (max-width: 544px) {
+	.hn-static-checkout .form-row-first,
+	.hn-static-checkout .form-row-last { width: 100%; float: none; }
+}
+
+.hn-static-pay { margin: 0 0 .75em; display: grid; grid-template-columns: auto 1fr; gap: .4em 1em; }
+.hn-static-pay dt { font-weight: 600; }
+.hn-static-pay dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 544px) {
+	.hn-static-pay { grid-template-columns: 1fr; }
+	.hn-static-pay dd { margin-bottom: .5em; }
+}
+.hn-static-pay__how { background: var(--hn-cream); border-left: 3px solid var(--hn-rose); padding: .6em .9em; margin: 0; }
+
+.hn-static-done .order_details { list-style: none; padding: 0; margin: 1.5em 0; display: flex; flex-wrap: wrap; gap: 1em 2em; }
+.hn-static-done .order_details li { border-right: 1px dashed var(--hn-border); padding-right: 2em; }
+.hn-static-done .order_details li:last-child { border-right: 0; }
+.hn-static-done h2 { margin-top: 1.5em; }
+
+/* Demo info page */
+.hn-static-demo { max-width: 680px; }
+.hn-static-demo ul { margin-bottom: 1.5em; }
+
+/* Shop: no results */
+.hn-static-noresults { margin-top: 1em; }
+ul.products[hidden] { display: none !important; }
+li.product[hidden] { display: none !important; }
+
+/* Long words / numbers never widen the page on phones */
+#hn-cart, #hn-checkout { overflow-wrap: anywhere; }
+@media (max-width: 768px) {
+	#hn-cart table.cart .product-thumbnail { display: none; }
+}

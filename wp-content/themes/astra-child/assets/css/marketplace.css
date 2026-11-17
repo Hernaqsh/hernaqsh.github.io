@@ -1,0 +1,454 @@
+/* =========================================================
+ * HerNaqsh – pazaryeri güveni (inc/marketplace.php, inc/contact-form.php)
+ * Ürün kartı satıcı etiketi, rozetler, ürün sayfası güvence kutusu
+ * ve satıcı kartı, mağaza sayfası başlığı, iletişim formu.
+ * Yalnızca paletteki renkler; kontrast notları satır yanında.
+ * ======================================================= */
+
+/* Ürün kartı: "by Ayesha Crafts" (text #4A3C42 beyazda 10.4:1) */
+.hn-card-seller {
+	display: block;
+	margin: -.15rem 0 .35rem;
+	font-family: var(--hn-font-body);
+	font-size: .85rem;
+	color: var(--hn-text);
+}
+.hn-card-seller a {
+	position: relative;
+	z-index: 1;
+	color: var(--hn-plum);
+	font-weight: 500;
+	text-decoration: none;
+}
+.hn-card-seller a:hover,
+.hn-card-seller a:focus-visible {
+	text-decoration: underline;
+	text-decoration-color: var(--hn-rose);
+	text-underline-offset: 3px;
+}
+
+/* Rozetler. New: plum / blush 8.9:1. Verified: beyaz / plum 11.5:1 */
+.hn-badges {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: .35rem;
+	vertical-align: middle;
+	margin-left: .35rem;
+}
+.hn-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: .3em;
+	padding: .2em .65em;
+	border-radius: 999px;
+	font-family: var(--hn-font-body);
+	font-size: .75rem;
+	font-weight: 600;
+	line-height: 1.4;
+	letter-spacing: .01em;
+	white-space: nowrap;
+}
+.hn-badge--new {
+	background: var(--hn-blush);
+	color: var(--hn-plum);
+}
+.hn-badge--verified {
+	background: var(--hn-plum);
+	color: var(--hn-white);
+}
+.hn-badge--verified::before {
+	content: "";
+	width: .85em;
+	height: .85em;
+	background: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* ---------------------------------------------------------
+ * Ürün sayfası: güvence kutusu (desen içeriği + hazırlık süresi)
+ * ------------------------------------------------------- */
+.hn-assurance {
+	clear: both;
+	margin: 1.5rem 0 1.25rem;
+	padding: 1rem 1.1rem;
+	background: var(--hn-cream);
+	border: 1px solid var(--hn-border);
+	border-radius: var(--hn-radius);
+	font-size: .92rem;
+	color: var(--hn-text);
+}
+.hn-assurance > :last-child,
+.hn-assurance .hn-trust { margin-bottom: 0; }
+.hn-assurance__dispatch {
+	margin: 0 0 .75rem;
+	padding-bottom: .75rem;
+	border-bottom: 1px solid var(--hn-border);
+}
+.hn-assurance strong { color: var(--hn-plum); }
+.hn-assurance a {
+	color: var(--hn-plum);
+	text-decoration: underline;
+	text-decoration-color: var(--hn-rose);
+	text-underline-offset: 3px;
+}
+.hn-assurance .hn-trust {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: .6rem;
+}
+.hn-assurance .hn-trust li {
+	position: relative;
+	margin: 0;
+	padding-left: 1.75rem;
+}
+.hn-assurance .hn-trust li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: .15em;
+	width: 1.1rem;
+	height: 1.1rem;
+	background: var(--hn-plum);
+	-webkit-mask: var(--hn-trust-icon) center / contain no-repeat;
+	mask: var(--hn-trust-icon) center / contain no-repeat;
+}
+.hn-trust__handmade { --hn-trust-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z'/%3E%3C/svg%3E"); }
+.hn-assurance .hn-trust__secure { --hn-trust-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='11' width='16' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E"); }
+.hn-assurance .hn-trust__returns { --hn-trust-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12a9 9 0 1 0 3-6.7'/%3E%3Cpath d='M3 4v5h5'/%3E%3C/svg%3E"); }
+.hn-assurance .hn-trust__delivery { --hn-trust-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7h11v9H3z'/%3E%3Cpath d='M14 10h4l3 3v3h-7z'/%3E%3Ccircle cx='7' cy='17.5' r='1.5'/%3E%3Ccircle cx='17' cy='17.5' r='1.5'/%3E%3C/svg%3E"); }
+
+/* ---------------------------------------------------------
+ * Ürün sayfası: satıcı kartı
+ * ------------------------------------------------------- */
+.hn-seller-card {
+	clear: both;
+	display: flex;
+	gap: 1rem;
+	align-items: flex-start;
+	margin: 1.25rem 0;
+	padding: 1.1rem;
+	background: var(--hn-white);
+	border: 1px solid var(--hn-border);
+	border-radius: var(--hn-radius-lg);
+	box-shadow: var(--hn-shadow);
+}
+.hn-seller-card__logo {
+	flex: 0 0 56px;
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid var(--hn-blush);
+}
+.hn-seller-card__body { min-width: 0; }
+.hn-seller-card__body p { margin: 0; }
+.hn-seller-card__label {
+	font-size: .75rem;
+	font-weight: 600;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: var(--hn-text);
+}
+.hn-seller-card__name {
+	font-family: var(--hn-font-heading);
+	font-size: 1.35rem;
+	font-weight: 600;
+	line-height: 1.25;
+}
+.hn-seller-card__name > a {
+	color: var(--hn-plum);
+	text-decoration: none;
+}
+.hn-seller-card__name .hn-badges { margin-left: .25rem; }
+.hn-seller-card__city {
+	font-size: .88rem;
+	color: var(--hn-text);
+}
+.hn-seller-card__bio {
+	margin-top: .5rem !important;
+	font-size: .92rem;
+	color: var(--hn-text);
+	overflow-wrap: anywhere;
+}
+.hn-seller-card__link {
+	display: inline-flex;
+	align-items: center;
+	min-height: 44px;
+	margin-top: .25rem;
+	font-weight: 600;
+	color: var(--hn-plum);
+	text-decoration: underline;
+	text-decoration-color: var(--hn-rose);
+	text-underline-offset: 3px;
+}
+
+/* ---------------------------------------------------------
+ * Mağaza listesi (/store-listing/, Dokan store-lists-loop.php)
+ * Kartlar ürün kartlarıyla aynı: beyaz zemin, ince çerçeve, yumuşak
+ * gölge, büyük köşe, fareli cihazda hafif yükselme. Banner'ı olmayan
+ * mağazada Dokan'ın gri çizimi yerine mağaza sayfasındaki plum zemin;
+ * varsayılan avatar yerine blush halka içinde plum mağaza simgesi;
+ * ok butonu Dokan moru yerine plum (üzerine gelince rose).
+ * ------------------------------------------------------- */
+#dokan-seller-listing-wrap ul.dokan-seller-wrap li.dokan-single-seller .store-wrapper {
+	overflow: hidden;
+	border: 1px solid var(--hn-border);
+	border-radius: var(--hn-radius-lg);
+	background: var(--hn-white);
+	box-shadow: var(--hn-shadow-sm);
+	transition: transform var(--hn-dur) var(--hn-ease-out), border-color var(--hn-dur) var(--hn-ease-out), box-shadow var(--hn-dur) var(--hn-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+	#dokan-seller-listing-wrap ul.dokan-seller-wrap li.dokan-single-seller .store-wrapper:hover {
+		transform: translate3d(0, -6px, 0);
+		border-color: var(--hn-blush);
+		box-shadow: var(--hn-shadow-lg);
+	}
+}
+#dokan-seller-listing-wrap .store-wrapper .store-banner {
+	background:
+		radial-gradient(90% 120% at 85% 10%, color-mix(in srgb, var(--hn-rose) 45%, transparent), transparent 65%),
+		var(--hn-plum);
+}
+#dokan-seller-listing-wrap .store-wrapper .store-banner img[src*="default-store-banner"] {
+	visibility: hidden;
+}
+/* Mağaza adı plum zeminde beyaz (11.5:1); gerçek banner üstünde okunur kalsın diye gölge */
+#dokan-seller-listing-wrap .store-wrapper .store-content .store-data h2 a {
+	color: var(--hn-white);
+	text-shadow: 0 1px 8px rgba(90, 30, 63, .45);
+}
+/* Dokan'ın siyah %45 örtüsü: gerçek banner üstünde plum tonlu, yalnızca üstte
+   (isim okunsun); banner yoksa örtü yok, plum zemin olduğu gibi görünsün. */
+body #dokan-seller-listing-wrap ul.dokan-seller-wrap li.dokan-single-seller .store-wrapper .store-content {
+	background: linear-gradient(180deg, color-mix(in srgb, var(--hn-plum) 60%, transparent), transparent 45%);
+}
+body #dokan-seller-listing-wrap ul.dokan-seller-wrap li.dokan-single-seller .store-wrapper:has(img[src*="default-store-banner"]) .store-content {
+	background: none;
+}
+body #dokan-seller-listing-wrap ul.dokan-seller-wrap li.dokan-single-seller .store-wrapper .store-footer {
+	background: var(--hn-white);
+	border-top: 1px solid var(--hn-border);
+}
+#dokan-seller-listing-wrap .store-wrapper .seller-avatar {
+	background: var(--hn-white);
+	box-shadow: var(--hn-shadow-md);
+}
+#dokan-seller-listing-wrap .store-wrapper .seller-avatar a {
+	position: relative;
+	display: block;
+}
+#dokan-seller-listing-wrap .store-wrapper .seller-avatar img[src*="mystery-person"] {
+	visibility: hidden;
+}
+#dokan-seller-listing-wrap .store-wrapper .seller-avatar:has(img[src*="mystery-person"]) a::after {
+	content: "";
+	position: absolute;
+	inset: 6px;
+	border-radius: 50%;
+	background-color: var(--hn-blush);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235A1E3F' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9l1.5-5h15L21 9'/%3E%3Cpath d='M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0'/%3E%3Cpath d='M5 12v8h14v-8'/%3E%3Cpath d='M10 20v-5h4v5'/%3E%3C/svg%3E");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 46%;
+}
+#dokan-seller-listing-wrap .store-wrapper .store-footer .dokan-btn-theme.dokan-btn-round,
+#dokan-seller-listing-wrap .store-wrapper .store-footer .dokan-btn-theme.dokan-btn-round:focus {
+	background-color: var(--hn-plum);
+	border-color: var(--hn-plum);
+	color: var(--hn-white);
+	transition: background-color var(--hn-dur-fast) var(--hn-ease-out), transform var(--hn-dur-fast) var(--hn-ease-out);
+}
+#dokan-seller-listing-wrap .store-wrapper .store-footer a:hover .dokan-btn-theme.dokan-btn-round,
+#dokan-seller-listing-wrap .store-wrapper .store-footer a:focus-visible .dokan-btn-theme.dokan-btn-round {
+	background-color: var(--hn-rose);
+	border-color: var(--hn-rose);
+	transform: translateX(2px);
+}
+#dokan-seller-listing-wrap .store-wrapper .store-footer a:focus-visible {
+	outline: 2px solid var(--hn-rose);
+	outline-offset: 3px;
+	border-radius: 50%;
+}
+@media (prefers-reduced-motion: reduce) {
+	#dokan-seller-listing-wrap ul.dokan-seller-wrap li.dokan-single-seller .store-wrapper:hover,
+	#dokan-seller-listing-wrap .store-wrapper .store-footer a:hover .dokan-btn-theme.dokan-btn-round {
+		transform: none;
+	}
+}
+
+/* ---------------------------------------------------------
+ * Mağaza sayfası (Dokan store.php)
+ * ------------------------------------------------------- */
+.dokan-store-wrap .profile-frame {
+	border-radius: var(--hn-radius-lg);
+	overflow: hidden;
+	box-shadow: var(--hn-shadow);
+}
+/* Banner yokken: Dokan'ın gri çizimi yerine plum zemin, rose ışık */
+.hn-store-no-banner .dokan-store-wrap .profile-frame {
+	background:
+		radial-gradient(90% 120% at 85% 10%, color-mix(in srgb, var(--hn-rose) 45%, transparent), transparent 65%),
+		var(--hn-plum);
+}
+.hn-store-no-banner .dokan-store-wrap img.profile-info-img {
+	visibility: hidden;
+}
+/* Varsayılan avatar (gri mağaza çizimi) yerine mağaza listesindeki gibi blush daire + plum simge */
+.dokan-store-wrap .profile-img img[src*="mystery-person"] {
+	content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='24' fill='%23F8D7E1'/%3E%3Cg transform='translate(13 13) scale(.9166)' fill='none' stroke='%235A1E3F' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9l1.5-5h15L21 9'/%3E%3Cpath d='M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0'/%3E%3Cpath d='M5 12v8h14v-8'/%3E%3Cpath d='M10 20v-5h4v5'/%3E%3C/g%3E%3C/svg%3E");
+}
+/* Bilgi paneli: siyah %65 yerine plum (beyaz yazı 11.5:1) */
+.dokan-store-wrap .profile-info-summery {
+	background: color-mix(in srgb, var(--hn-plum) 92%, transparent) !important;
+}
+.hn-store-no-banner .dokan-store-wrap .profile-info-summery {
+	background: transparent !important;
+}
+.dokan-store-wrap .profile-frame .store-name {
+	flex-direction: column;
+	align-items: center;
+	gap: .4rem;
+	padding: 0 1rem;
+	text-align: center;
+	font-family: var(--hn-font-heading);
+	font-weight: 600;
+	color: var(--hn-white);
+}
+.dokan-store-wrap .profile-frame .store-name .hn-badges {
+	justify-content: center;
+	margin-left: 0;
+	font-size: 1rem;
+}
+/* Plum zeminde "New seller" blush kalır; "Verified" beyaz zemin + plum */
+.dokan-store-wrap .profile-frame .hn-badge--verified {
+	background: var(--hn-white);
+	color: var(--hn-plum);
+}
+.dokan-store-wrap .profile-frame .dokan-store-info li,
+.dokan-store-wrap .profile-frame .dokan-store-info a {
+	color: var(--hn-white);
+}
+/* <1000px: Dokan bilgi alanını banner'ın altına, beyaz zemine alır → koyu yazı */
+@media (max-width: 999px) {
+	.dokan-store-wrap .profile-info-summery-wrapper {
+		background: var(--hn-white) !important;
+	}
+	.dokan-store-wrap .profile-info-summery,
+	.hn-store-no-banner .dokan-store-wrap .profile-info-summery {
+		background: transparent !important;
+	}
+	.dokan-store-wrap .profile-frame .store-name {
+		color: var(--hn-plum);
+	}
+	.dokan-store-wrap .profile-frame .hn-badge--verified {
+		background: var(--hn-plum);
+		color: var(--hn-white);
+	}
+	.dokan-store-wrap .profile-frame .dokan-store-info li,
+	.dokan-store-wrap .profile-frame .dokan-store-info a,
+	.dokan-store-wrap .profile-frame .dokan-store-info i {
+		color: var(--hn-text);
+	}
+}
+
+/* Dokan'ın mor teması → plum */
+.dokan-store-wrap .dokan-btn-theme,
+.dokan-store-wrap input.search-store-products {
+	background: var(--hn-plum) !important;
+	border-color: var(--hn-plum) !important;
+	color: var(--hn-white) !important;
+	border-radius: var(--hn-radius) !important;
+}
+.dokan-store-wrap .dokan-btn-theme:hover,
+.dokan-store-wrap input.search-store-products:hover {
+	background: var(--hn-rose) !important;
+	border-color: var(--hn-rose) !important;
+}
+.dokan-store-wrap .dokan-store-tabs ul li a:hover,
+.dokan-store-wrap .dokan-store-tabs ul li.active a {
+	color: var(--hn-plum);
+}
+.dokan-store-sidebar .widget-title {
+	font-family: var(--hn-font-heading);
+	font-size: 1.4rem;
+	color: var(--hn-plum);
+}
+.dokan-store-wrap .profile-img img {
+	border: 3px solid var(--hn-white);
+	box-shadow: var(--hn-shadow);
+}
+.dokan-store-wrap .dokan-store-tabs ul li a {
+	font-family: var(--hn-font-body);
+}
+
+.hn-store-about {
+	margin: 1.5rem 0;
+	padding: 1.25rem 1.4rem;
+	background: var(--hn-cream);
+	border: 1px solid var(--hn-border);
+	border-left: 3px solid var(--hn-rose);
+	border-radius: var(--hn-radius);
+	color: var(--hn-text);
+}
+.hn-store-about h2 {
+	margin: 0 0 .4rem;
+	font-size: 1.4rem;
+	color: var(--hn-plum);
+}
+.hn-store-about p { margin: 0; overflow-wrap: anywhere; }
+.hn-store-about p + p { margin-top: .6rem; }
+.hn-store-about strong { color: var(--hn-plum); }
+
+/* ---------------------------------------------------------
+ * İletişim formu
+ * ------------------------------------------------------- */
+.hn-contact-wrap { scroll-margin-top: 120px; }
+.hn-contact {
+	display: grid;
+	gap: .25rem;
+	max-width: 640px;
+}
+.hn-contact p { margin: 0 0 .75rem; }
+.hn-contact label {
+	display: block;
+	margin-bottom: .3rem;
+	font-weight: 600;
+	color: var(--hn-plum);
+}
+.hn-contact :is(input[type="text"], input[type="email"], textarea) {
+	width: 100%;
+	min-height: 44px;
+}
+.hn-contact__privacy { font-size: .88rem; color: var(--hn-text); }
+.hn-contact__privacy a { color: var(--hn-plum); text-decoration-color: var(--hn-rose); }
+.hn-contact .button { min-height: 44px; }
+/* Botlar için tuzak alan: ekrandan ve ekran okuyucudan gizli */
+.hn-contact__trap {
+	position: absolute !important;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+.hn-contact__notice {
+	max-width: 640px;
+	margin: 0 0 1.25rem;
+	padding: .9rem 1.1rem;
+	border-radius: var(--hn-radius);
+	border-left: 3px solid var(--hn-sage);
+	background: var(--hn-cream);
+	color: var(--hn-plum);
+}
+.hn-contact__notice--error {
+	border-left-color: var(--hn-rose);
+	background: var(--hn-blush);
+}
+
+@media (max-width: 480px) {
+	.hn-seller-card { padding: 1rem; gap: .8rem; }
+	.hn-seller-card__logo { flex-basis: 48px; width: 48px; height: 48px; }
+}

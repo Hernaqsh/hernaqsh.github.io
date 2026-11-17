@@ -1,0 +1,218 @@
+/* =========================================================
+ * HerNaqsh – site geneli küçük parçalar
+ * Breadcrumb kontrastı, çerez bilgi şeridi (inc/cookie-notice.php),
+ * 404 sayfası (template-parts/404/404-layout.php).
+ * Yalnızca paletteki renkler; kontrast notları satır yanında.
+ * ======================================================= */
+
+/* WooCommerce breadcrumb varsayılanı #777 (cream'de 4.15:1, AA altı).
+   text #4A3C42 cream'de 9.9:1. :is(): satıcı mağaza sayfasında .woocommerce
+   sınıfı yok, ama özgüllük Woo'nun kuralıyla eşit kalmalı. */
+:is(.woocommerce, body) .woocommerce-breadcrumb,
+:is(.woocommerce, body) .woocommerce-breadcrumb a {
+	color: var(--hn-text);
+}
+:is(.woocommerce, body) .woocommerce-breadcrumb a:hover,
+:is(.woocommerce, body) .woocommerce-breadcrumb a:focus-visible {
+	color: var(--hn-plum);
+}
+
+
+/* ---------------------------------------------------------
+ * Çerez bilgi şeridi: altta, ortalanmış kart. plum / beyaz 11.5:1
+ * ------------------------------------------------------- */
+.hn-cookie {
+	position: fixed;
+	left: 50%;
+	bottom: 16px;
+	z-index: 98;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	width: min(720px, calc(100% - 32px));
+	padding: .85rem 1rem .85rem 1.25rem;
+	transform: translateX(-50%);
+	border: 1px solid var(--hn-border);
+	border-radius: var(--hn-radius-lg);
+	background: var(--hn-white);
+	box-shadow: var(--hn-shadow-hover);
+	font-family: var(--hn-font-body);
+	color: var(--hn-text);
+}
+.hn-cookie[hidden] { display: none; }
+.hn-cookie__text {
+	flex: 1;
+	margin: 0;
+	font-size: .9rem;
+	line-height: 1.5;
+}
+.hn-cookie__text a {
+	color: var(--hn-plum);
+	font-weight: 600;
+	text-decoration-color: var(--hn-rose);
+	text-underline-offset: 3px;
+}
+.hn-cookie__ok {
+	flex: none;
+	min-height: 44px;
+}
+
+/* Şerit açıkken sayfa sonunda şerit yüksekliği + alt boşluk kadar yer
+   (JS --hn-cookie-h'ı ölçer); kapanınca sınıf kalkar, boşluk kalmaz. */
+.hn-cookie-open body {
+	padding-bottom: calc(var(--hn-cookie-h, 0px) + 28px);
+}
+.hn-cookie-open .hn-wish-toast {
+	bottom: calc(var(--hn-cookie-h, 0px) + 28px);
+}
+
+@media (max-width: 600px) {
+	.hn-cookie {
+		gap: .75rem;
+		bottom: 12px;
+		padding: .7rem .75rem .7rem 1rem;
+	}
+	.hn-cookie__text { font-size: max(.85rem, 13px); line-height: 1.45; }
+	.hn-cookie__ok { padding-inline: 1rem; }
+}
+
+
+/* ---------------------------------------------------------
+ * 404
+ * ------------------------------------------------------- */
+/* .ast-404-layout-1 ile: Astra aynı sınıfa margin:0 ve padding veriyor */
+.hn-404.ast-404-layout-1 {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 2.5rem 0 1rem;
+	text-align: center;
+}
+.hn-404 .hn-404__code {
+	margin: 0;
+	font-family: var(--hn-font-heading);
+	font-size: clamp(4.5rem, 14vw, 7.5rem);
+	font-weight: 600;
+	line-height: 1;
+	color: var(--hn-blush);
+	/* Dekoratif; metin olarak plum başlık okunur */
+	text-shadow: 0 2px 0 var(--hn-rose);
+}
+.hn-404__title {
+	margin: .5rem 0 .75rem;
+	font-family: var(--hn-font-heading);
+	font-size: clamp(2rem, 5vw, 2.75rem);
+	color: var(--hn-plum);
+}
+.hn-404__text {
+	max-width: 520px;
+	margin: 0 auto 1.75rem;
+	color: var(--hn-text);
+}
+.hn-404__search {
+	max-width: 520px;
+	margin: 0 auto 1.5rem;
+}
+.hn-404__search .woocommerce-product-search {
+	display: flex;
+	gap: .5rem;
+}
+.hn-404__search .search-field {
+	flex: 1;
+	min-height: 44px;
+}
+.hn-404__search button { min-height: 44px; }
+.hn-404__links {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: .75rem;
+	margin: 0 0 3rem;
+}
+.hn-404__links .button { min-height: 44px; }
+/* İkincil butonlar: blush / plum 8.9:1 */
+.hn-404__links .hn-404__alt {
+	background: var(--hn-blush);
+	border-color: var(--hn-blush);
+	color: var(--hn-plum);
+}
+.hn-404__links .hn-404__alt:hover,
+.hn-404__links .hn-404__alt:focus-visible {
+	background: var(--hn-plum);
+	border-color: var(--hn-plum);
+	color: var(--hn-white);
+}
+.hn-404__new {
+	padding-top: 2rem;
+	border-top: 1px solid var(--hn-border);
+	text-align: left;
+}
+.hn-404__new h2 {
+	margin-bottom: 1.25rem;
+	font-family: var(--hn-font-heading);
+	color: var(--hn-plum);
+	text-align: center;
+}
+.hn-404__help {
+	margin: 2rem 0 0;
+	color: var(--hn-text);
+}
+.hn-404__help a { color: var(--hn-plum); text-decoration-color: var(--hn-rose); }
+
+@media (max-width: 480px) {
+	.hn-404 { padding-top: 1.5rem; }
+	.hn-404__links .button { flex: 1 1 100%; }
+}
+
+/* ---------------------------------------------------------
+ * Palet dışı renkler (müşteri sayfaları). Dokan satıcı paneli
+ * (body.dokan-dashboard) ve admin çubuğu bilerek hariç.
+ * ------------------------------------------------------- */
+body:not(.dokan-dashboard) {
+	/* Astra form alanları ve kenarlıklar: #475569 / #e5d9dd yerine */
+	--ast-form-input-text: var(--hn-text);
+	--ast-border-color: var(--hn-border);
+}
+
+/* WooCommerce zorunlu alan yıldızı (kırmızı yerine plum, 11.5:1) */
+body:not(.dokan-dashboard) .woocommerce form .form-row .required,
+body:not(.dokan-dashboard) .woocommerce .required {
+	color: var(--hn-plum);
+}
+
+/* Onay kutuları ve radyo düğmeleri (ödeme, giriş, kayıt) */
+body:not(.dokan-dashboard) .woocommerce input[type="checkbox"],
+body:not(.dokan-dashboard) .woocommerce input[type="radio"] {
+	color: var(--hn-text);
+	accent-color: var(--hn-plum);
+}
+
+/* Şifre göster butonu */
+body:not(.dokan-dashboard) .woocommerce form .show-password-input {
+	color: var(--hn-text);
+}
+
+/* Clicks: ödeme kutusundaki kopyala simgesi */
+.woocommerce-checkout .mpgp-copy-icon { color: var(--hn-text); }
+.woocommerce-checkout .mpgp-copyable:hover .mpgp-copy-icon { color: var(--hn-plum); }
+
+/* Dokan mağaza sayfası ve Sellers listesi (herkese açık sayfalar). Dokan'ın
+   kendi seçicileri çok özgül; aynılarına body eklenerek geçiliyor. */
+body .dokan-single-store .dokan-store-tabs ul.dokan-list-inline li a,
+body:not(.dokan-dashboard) .dokan-store-wrap .dokan-form-control {
+	color: var(--hn-text);
+}
+body:not(.dokan-dashboard) .dokan-store-wrap .dokan-form-control,
+body .dokan-single-store .dokan-store-tabs .dokan-modules-button,
+body #dokan-store-listing-filter-wrap .right .item select {
+	border-color: var(--hn-border);
+}
+/* Dar ekranda mağaza başlığı beyaz kart olur (masaüstünde banner üstünde beyaz yazı kalır). */
+@media (max-width: 1199px) {
+	body .dokan-single-store .profile-frame .profile-info-box .profile-info-summery-wrapper {
+		border-color: var(--hn-border);
+		color: var(--hn-text);
+	}
+	body .dokan-single-store .profile-frame .profile-info-box .profile-info-summery-wrapper .profile-info-summery .profile-info-head .profile-img img {
+		border-color: var(--hn-border);
+	}
+}

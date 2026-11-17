@@ -1,0 +1,1244 @@
+/*
+Theme Name:   HerNaqsh (Astra Child)
+Theme URI:    https://hernaqsh.local
+Description:  HerNaqsh çocuk teması. Astra + WooCommerce + Dokan için marka tipografisi, renk paleti ve bileşen stilleri.
+Author:       HerNaqsh
+Template:     astra
+Version:      1.0.0
+Text Domain:  hernaqsh
+*/
+
+/* =========================================================
+   İÇİNDEKİLER
+   1.  Tasarım değişkenleri (palet, font, ölçüler)
+   2.  Temel (body, bağlantılar, seçim, odak)
+   3.  Tipografi (başlıklar, poster, eyebrow, dikiş çizgisi)
+   4.  Butonlar
+   5.  Formlar
+   6.  Header / menü
+   7.  Mağaza: ürün listesi
+   8.  Tekil ürün
+   9.  Sepet / ödeme / bildirimler
+   10. Footer
+   11. Mobil
+   12. Erişilebilirlik
+   (Dokan + Hesabım stilleri: assets/css/dokan.css)
+   ========================================================= */
+
+
+/* =========================================================
+   1. TASARIM DEĞİŞKENLERİ
+   Palet DEĞİŞMEZ. Tek kaynak burası.
+   ========================================================= */
+
+:root {
+    /* Palet */
+    --hn-plum: #5A1E3F;     /* Heritage Plum */
+    --hn-rose: #D46A8C;     /* Craft Rose */
+    --hn-blush: #F8D7E1;    /* Blush */
+    --hn-cream: #F9F6F1;    /* Cream */
+    --hn-sage: #8A9F7A;     /* Sage */
+    --hn-text: #4A3C42;     /* Yardımcı metin */
+    --hn-border: #E8DDD6;
+    --hn-white: #FFFFFF;
+
+    /* Fontlar (tasarım sistemi) */
+    --hn-font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --hn-font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+    /* Ölçüler */
+    --hn-radius: 10px;
+    --hn-radius-lg: 16px;
+    --hn-shadow: 0 1px 2px rgba(90, 30, 63, .06), 0 6px 20px rgba(90, 30, 63, .08);
+    --hn-shadow-hover: 0 2px 4px rgba(90, 30, 63, .08), 0 14px 32px rgba(90, 30, 63, .14);
+    --hn-ease: .25s ease;
+
+    /* Astra global renkleri → HerNaqsh paleti.
+       Astra bağlantı, buton, başlık ve zemin renklerini buradan okur. */
+    --ast-global-color-0: var(--hn-plum);
+    --ast-global-color-1: var(--hn-rose);
+    --ast-global-color-2: var(--hn-plum);
+    --ast-global-color-3: var(--hn-plum);
+    --ast-global-color-4: var(--hn-cream);
+    --ast-global-color-5: var(--hn-white);
+    --ast-global-color-6: var(--hn-blush);
+    --ast-global-color-7: var(--hn-border);
+    --ast-global-color-8: var(--hn-text);
+}
+
+
+/* =========================================================
+   2. TEMEL
+   ========================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--hn-cream);
+    color: var(--hn-plum);
+    font-family: var(--hn-font-body) !important;
+    font-weight: 400;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea,
+.ast-button,
+.ast-custom-button {
+    font-family: var(--hn-font-body) !important;
+}
+
+a {
+    color: var(--hn-plum);
+    transition: color var(--hn-ease);
+}
+
+a:hover,
+a:focus {
+    color: var(--hn-rose);
+}
+
+.entry-content a:not(.button):not(.wp-block-button__link):not(.ast-button) {
+    text-decoration-color: var(--hn-rose);
+    text-underline-offset: 3px;
+}
+
+::selection {
+    background: var(--hn-blush);
+    color: var(--hn-plum);
+}
+
+/* Ana içerik zemini */
+.ast-separate-container .ast-article-post,
+.ast-separate-container .ast-article-single,
+.ast-separate-container .comment-respond {
+    background-color: var(--hn-white);
+    border-radius: var(--hn-radius-lg);
+}
+
+hr,
+.wp-block-separator {
+    border-color: var(--hn-border);
+}
+
+
+/* =========================================================
+   3. TİPOGRAFİ
+   Ana başlıklar      → Cormorant Garamond SemiBold (600)
+   Alt başlıklar      → Cormorant Garamond Medium   (500)
+   Gövde              → DM Sans Regular             (400)
+   Buton / navigasyon → DM Sans SemiBold            (600)
+   Poster başlıkları  → Cormorant Garamond Bold     (700)
+   ========================================================= */
+
+body :is(h1, h2, h3, h4, h5, h6),
+body .entry-content :is(h1, h2, h3, h4, h5, h6),
+body .entry-title,
+body .widget-title,
+body .woocommerce-loop-product__title,
+body .woocommerce-loop-category__title,
+body .woocommerce div.product .product_title {
+    font-family: var(--hn-font-heading) !important;
+    color: var(--hn-plum);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+}
+
+/* Not: Dokan paneli (.dokan-layout = sidebar/üst bar, .dokan-dashboard-wrap =
+   analitik içerik) kendi boyutlarını kullanır,
+   bu yüzden boyut/kalınlık kuralları panelin dışına sınırlandı. */
+
+/* Ana başlıklar: SemiBold */
+body :is(h1, h2):not(.dokan-layout *, .dokan-dashboard-wrap *),
+body .entry-content :is(h1, h2),
+body .entry-title,
+body .woocommerce div.product .product_title {
+    font-weight: 600;
+    line-height: 1.12;
+}
+
+/* Alt başlıklar: Medium */
+body :is(h3, h4, h5, h6):not(.dokan-layout *, .dokan-dashboard-wrap *),
+body .entry-content :is(h3, h4, h5, h6),
+body .widget-title {
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+/* Cormorant küçük görünür, boyutlar bilerek büyük */
+body h1:not(.dokan-layout *, .dokan-dashboard-wrap *),
+body .entry-content h1,
+body .entry-title {
+    font-size: clamp(2.2rem, 1.5rem + 2.6vw, 3.5rem);
+}
+
+body h2:not(.dokan-layout *, .dokan-dashboard-wrap *),
+body .entry-content h2 {
+    font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.6rem);
+}
+
+body h3:not(.dokan-layout *, .dokan-dashboard-wrap *),
+body .entry-content h3 {
+    font-size: clamp(1.45rem, 1.2rem + 1vw, 1.9rem);
+}
+
+body h4:not(.dokan-layout *, .dokan-dashboard-wrap *),
+body .entry-content h4 {
+    font-size: 1.4rem;
+}
+
+body h5:not(.dokan-layout *, .dokan-dashboard-wrap *),
+body .entry-content h5 {
+    font-size: 1.2rem;
+}
+
+body h6:not(.dokan-layout *, .dokan-dashboard-wrap *),
+body .entry-content h6 {
+    font-size: 1.05rem;
+}
+
+p:not(.dokan-layout *, .dokan-dashboard-wrap *) {
+    margin-bottom: 1.15em;
+}
+
+strong,
+b {
+    font-weight: 600;
+}
+
+/* Editörden yapıştırılan <code> etiketleri başlık ve butonlarda
+   monospace'e düşmesin; çevredeki fontu devralsın. */
+:is(h1, h2, h3, h4, h5, h6, p, li, .wp-block-button__link, .button) code:not(pre code) {
+    font: inherit;
+    color: inherit;
+    background: none;
+    padding: 0;
+    letter-spacing: inherit;
+}
+
+/* ---- Poster başlığı (hero, kampanya görselleri) ----
+   Kullanım: bir başlığa / paragrafa "hn-poster-title" sınıfı ekle.
+   Koyu zeminde "hn-on-plum" ekle (krem yazı). */
+body .hn-poster-title,
+body .entry-content .hn-poster-title {
+    font-family: var(--hn-font-heading) !important;
+    font-weight: 700;
+    font-size: clamp(2.8rem, 1.6rem + 5vw, 5.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    color: var(--hn-plum);
+}
+
+.hn-on-plum,
+body .hn-on-plum .hn-poster-title,
+body .hn-poster-title.hn-on-plum {
+    color: var(--hn-cream);
+}
+
+/* ---- Ana sayfa hero (cover bloğu) ---- */
+.entry-content > .wp-block-cover {
+    border-radius: var(--hn-radius-lg);
+    overflow: hidden;
+}
+
+.entry-content > .wp-block-cover + * {
+    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+}
+
+body .wp-block-cover .hn-poster-title {
+    margin-bottom: .35em;
+    font-size: clamp(2.5rem, 1.4rem + 4.2vw, 4.6rem);
+}
+
+.wp-block-cover .hn-hero-lead {
+    max-width: 38rem;
+    margin-inline: auto;
+    font-size: clamp(1rem, .95rem + .3vw, 1.15rem);
+    line-height: 1.6;
+    opacity: .92;
+}
+
+.wp-block-cover .wp-block-buttons {
+    gap: .75rem 1rem;
+    margin-top: 1.75rem;
+}
+
+/* ---- Eyebrow: başlık üstü küçük etiket ("HERNAQSH · WEBSITE HERO") ---- */
+.hn-eyebrow {
+    font-family: var(--hn-font-body);
+    font-weight: 600;
+    font-size: .78rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--hn-rose);
+}
+
+/* ---- Dekoratif aksan: dikiş çizgisi (nakış motifi) ----
+   Kullanım: <hr class="hn-stitch"> veya <span class="hn-stitch"></span>
+   Ortalamak için "hn-stitch--center", sage için "hn-stitch--sage". */
+.hn-stitch {
+    display: block;
+    width: 72px;
+    height: 0;
+    margin: 1.2rem 0;
+    border: 0;
+    border-top: 2px dashed var(--hn-rose);
+    background: none;
+}
+
+.hn-stitch--center {
+    margin-inline: auto;
+}
+
+.hn-stitch--sage {
+    border-top-color: var(--hn-sage);
+}
+
+
+/* =========================================================
+   4. BUTONLAR
+   Buton: Plum zemin / Cream yazı, hover Rose.
+   Not: Dokan panel butonları assets/css/dokan.css içinde.
+   ========================================================= */
+
+.ast-button,
+.ast-custom-button,
+.wp-block-button__link,
+.wp-element-button,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit,
+.woocommerce a.button.alt,
+.woocommerce button.button.alt,
+.woocommerce input.button.alt,
+.woocommerce #respond input#submit.alt,
+input[type="submit"],
+input[type="button"],
+.comment-form .submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5em;
+    min-height: 44px;
+    padding: .75em 1.6em;
+    font-family: var(--hn-font-body) !important;
+    font-weight: 600;
+    font-size: .95rem;
+    line-height: 1.2;
+    letter-spacing: .02em;
+    color: var(--hn-cream);
+    background-color: var(--hn-plum);
+    border: 1px solid var(--hn-plum);
+    border-radius: var(--hn-radius);
+    box-shadow: none;
+    cursor: pointer;
+    transition: background-color var(--hn-ease), border-color var(--hn-ease), color var(--hn-ease), transform var(--hn-ease);
+}
+
+.ast-button:hover,
+.ast-custom-button:hover,
+.wp-block-button__link:hover,
+.wp-element-button:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce #respond input#submit:hover,
+.woocommerce a.button.alt:hover,
+.woocommerce button.button.alt:hover,
+.woocommerce input.button.alt:hover,
+.woocommerce #respond input#submit.alt:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.comment-form .submit:hover {
+    color: var(--hn-white);
+    background-color: var(--hn-rose);
+    border-color: var(--hn-rose);
+    transform: translateY(-1px);
+}
+
+.woocommerce a.button.disabled,
+.woocommerce button.button:disabled,
+.woocommerce button.button.disabled,
+.woocommerce button.button:disabled[disabled] {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Çerçeveli (outline) buton: Gutenberg "Outline" stili */
+.wp-block-button.is-style-outline .wp-block-button__link {
+    color: var(--hn-plum);
+    background: transparent;
+    border: 1.5px solid var(--hn-plum);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link:hover {
+    color: var(--hn-white);
+    background: var(--hn-rose);
+    border-color: var(--hn-rose);
+}
+
+/* Koyu (plum) zemin butonları: blok sınıfı "hn-btn-rose" / "hn-btn-blush".
+   Renk satır içi değil sınıfta, böylece hover çalışır. */
+.wp-block-button.hn-btn-rose .wp-block-button__link {
+    color: var(--hn-white);
+    background-color: var(--hn-rose);
+    border-color: var(--hn-rose);
+}
+
+.wp-block-button.hn-btn-rose .wp-block-button__link:hover,
+.wp-block-button.hn-btn-rose .wp-block-button__link:focus-visible {
+    color: var(--hn-plum);
+    background-color: var(--hn-cream);
+    border-color: var(--hn-cream);
+}
+
+.wp-block-button.hn-btn-blush .wp-block-button__link {
+    color: var(--hn-plum);
+    background-color: var(--hn-blush);
+    border-color: var(--hn-blush);
+}
+
+.wp-block-button.hn-btn-blush .wp-block-button__link:hover,
+.wp-block-button.hn-btn-blush .wp-block-button__link:focus-visible {
+    color: var(--hn-white);
+    background-color: var(--hn-rose);
+    border-color: var(--hn-rose);
+}
+
+/* Hero CTA: rose zeminde beyaz yazı 3.4:1. AA için "büyük metin"
+   (≥18.66px + bold) eşiğine çıkarıldı; iki buton aynı boyda kalsın.
+   max(): mobilde kök font küçülünce 1.2rem eşiğin altına düşüyordu. */
+.wp-block-cover .wp-block-button .wp-block-button__link {
+    font-size: max(1.2rem, 18.67px);
+    font-weight: 700;
+}
+
+/* Plum zeminde odak halkası görünsün */
+.wp-block-cover .wp-block-button__link:focus-visible {
+    outline-color: var(--hn-cream);
+}
+
+
+/* =========================================================
+   5. FORMLAR
+   ========================================================= */
+
+.woocommerce :is(input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="password"], input[type="search"], input[type="number"], textarea, select),
+.entry-content :is(input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="password"], input[type="search"], input[type="number"], textarea, select),
+.comment-form :is(input[type="text"], input[type="email"], input[type="url"], textarea),
+.widget :is(input[type="search"], input[type="text"], input[type="email"]),
+.select2-container--default .select2-selection--single {
+    min-height: 46px;
+    padding: .65em .9em;
+    color: var(--hn-plum);
+    background-color: var(--hn-white);
+    border: 1px solid var(--hn-border);
+    border-radius: var(--hn-radius);
+    box-shadow: none;
+    transition: border-color var(--hn-ease), box-shadow var(--hn-ease);
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: var(--hn-plum);
+    line-height: 1.6;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 44px;
+}
+
+.woocommerce :is(input, textarea, select):focus,
+.entry-content :is(input, textarea, select):focus,
+.comment-form :is(input, textarea):focus,
+.widget :is(input, textarea):focus,
+.select2-container--default.select2-container--open .select2-selection--single {
+    border-color: var(--hn-rose);
+    box-shadow: 0 0 0 3px var(--hn-blush);
+    outline: none;
+}
+
+::placeholder {
+    color: var(--hn-text);
+    opacity: .55;
+}
+
+label {
+    font-weight: 500;
+    color: var(--hn-plum);
+}
+
+/* Select2 açılır liste */
+.select2-dropdown {
+    border-color: var(--hn-border);
+    border-radius: var(--hn-radius);
+    overflow: hidden;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected],
+.select2-container--default .select2-results__option--highlighted[data-selected] {
+    background-color: var(--hn-rose);
+    color: var(--hn-white);
+}
+
+/* Miktar kutusu */
+.woocommerce .quantity .qty {
+    width: 4.5em;
+    min-height: 46px;
+    text-align: center;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   6. HEADER / MENÜ
+   ========================================================= */
+
+.main-header-bar,
+.ast-primary-header-bar {
+    background-color: var(--hn-white);
+    border-bottom: 1px solid var(--hn-border);
+}
+
+.site-title,
+.site-title a {
+    font-family: var(--hn-font-heading) !important;
+    font-weight: 700;
+    font-size: 1.9rem;
+    letter-spacing: .02em;
+    color: var(--hn-plum);
+}
+
+.site-title a:hover {
+    color: var(--hn-rose);
+}
+
+.site-description {
+    font-size: .8rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--hn-text);
+}
+
+.main-header-menu .menu-link,
+.ast-header-break-point .main-header-menu .menu-link {
+    font-family: var(--hn-font-body);
+    font-weight: 500;
+    font-size: .95rem;
+    letter-spacing: .02em;
+    color: var(--hn-plum);
+}
+
+.main-header-menu .menu-item:hover > .menu-link,
+.main-header-menu .menu-item:focus-within > .menu-link,
+.main-header-menu .current-menu-item > .menu-link,
+.main-header-menu .current-menu-ancestor > .menu-link,
+.main-header-menu .current_page_item > .menu-link {
+    color: var(--hn-rose);
+}
+
+/* Alt menü */
+.main-header-menu .sub-menu {
+    background-color: var(--hn-white);
+    border: 1px solid var(--hn-border);
+    border-radius: var(--hn-radius);
+    box-shadow: var(--hn-shadow);
+    overflow: hidden;
+}
+
+.main-header-menu .sub-menu .menu-link {
+    border-bottom: 0;
+}
+
+.main-header-menu .sub-menu .menu-item:hover > .menu-link {
+    background-color: var(--hn-blush);
+    color: var(--hn-plum);
+}
+
+/* Mobil menü */
+.ast-header-break-point .main-header-bar-navigation,
+.ast-header-break-point .ast-mobile-header-content {
+    background-color: var(--hn-white);
+}
+
+.ast-header-break-point .main-header-menu .menu-item {
+    border-bottom: 1px solid var(--hn-border);
+}
+
+/* Header sepet ikonu */
+.ast-site-header-cart .ast-cart-menu-wrap .count,
+.ast-site-header-cart a {
+    color: var(--hn-plum);
+}
+
+.ast-site-header-cart a:hover {
+    color: var(--hn-rose);
+}
+
+/* Yukarı çık */
+#ast-scroll-top {
+    background-color: var(--hn-plum);
+    color: var(--hn-cream);
+    border-radius: 50%;
+    transition: background-color var(--hn-ease), transform var(--hn-ease);
+}
+
+#ast-scroll-top:hover {
+    background-color: var(--hn-rose);
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   7. MAĞAZA: ÜRÜN LİSTESİ
+   ========================================================= */
+
+/* Ürün kartı */
+.woocommerce ul.products li.product,
+.woocommerce-page ul.products li.product {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--hn-white);
+    border: 1px solid var(--hn-border);
+    border-radius: var(--hn-radius-lg);
+    overflow: hidden;
+    transition: transform var(--hn-ease), box-shadow var(--hn-ease), border-color var(--hn-ease);
+}
+
+/* Yükselme + gölge: ui.css bölüm 7 (yalnızca fareli cihazda) */
+.woocommerce ul.products li.product:hover,
+.woocommerce-page ul.products li.product:hover {
+    border-color: var(--hn-blush);
+}
+
+.woocommerce ul.products li.product img,
+.woocommerce-page ul.products li.product img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    margin: 0 0 .9rem;
+    border-radius: 0;
+}
+
+.astra-shop-summary-wrap {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 0 1.1rem 1.25rem;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 0 0 .35rem;
+}
+
+/* Sage beyaz zeminde çok soluk (≈2.8:1); küçük metin için plum'a doğru koyulaştırıldı. */
+.woocommerce ul.products li.product .ast-woo-product-category {
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--hn-sage) 55%, var(--hn-plum));
+}
+
+/* Fiyat + buton kartın dibinde: başlık uzunluğu farkı hizayı bozmasın */
+.woocommerce ul.products li.product .price {
+    margin-top: auto;
+}
+
+.woocommerce ul.products li.product .button {
+    margin-top: 0;
+    width: 100%;
+}
+
+/* Fiyat */
+.woocommerce .price,
+.woocommerce ul.products li.product .price,
+.woocommerce div.product p.price,
+.woocommerce div.product span.price {
+    font-family: var(--hn-font-body);
+    font-weight: 600;
+    color: var(--hn-plum);
+}
+
+.woocommerce .price del {
+    font-weight: 400;
+    opacity: .5;
+}
+
+.woocommerce .price ins {
+    text-decoration: none;
+    color: var(--hn-rose);
+}
+
+/* İndirim rozeti */
+.woocommerce span.onsale,
+.ast-onsale-card {
+    min-width: 0;
+    min-height: 0;
+    padding: .35em .9em;
+    font-family: var(--hn-font-body);
+    font-weight: 600;
+    font-size: .75rem;
+    letter-spacing: .06em;
+    line-height: 1.4;
+    color: var(--hn-white);
+    background-color: var(--hn-rose);
+    border-radius: 999px;
+}
+
+/* Yıldızlar */
+.woocommerce .star-rating::before {
+    color: var(--hn-border);
+}
+
+.woocommerce .star-rating span::before {
+    color: var(--hn-rose);
+}
+
+/* Sonuç sayısı + sıralama */
+.woocommerce .woocommerce-result-count {
+    color: var(--hn-text);
+    font-size: .9rem;
+}
+
+.woocommerce .woocommerce-ordering select {
+    min-height: 44px;
+}
+
+/* Breadcrumb */
+.woocommerce-breadcrumb,
+.ast-breadcrumbs-wrapper,
+.ast-breadcrumbs-wrapper a {
+    font-size: .85rem;
+    color: var(--hn-text);
+}
+
+.woocommerce-breadcrumb a:hover,
+.ast-breadcrumbs-wrapper a:hover {
+    color: var(--hn-rose);
+}
+
+/* Sayfalama */
+.woocommerce nav.woocommerce-pagination ul,
+.woocommerce nav.woocommerce-pagination ul li {
+    border: 0;
+}
+
+.woocommerce nav.woocommerce-pagination ul li a,
+.woocommerce nav.woocommerce-pagination ul li span,
+.ast-pagination .page-numbers {
+    min-width: 42px;
+    padding: .55em .8em;
+    color: var(--hn-plum);
+    background: var(--hn-white);
+    border: 1px solid var(--hn-border);
+    border-radius: var(--hn-radius);
+}
+
+.woocommerce nav.woocommerce-pagination ul li a:hover,
+.ast-pagination a.page-numbers:hover {
+    color: var(--hn-plum);
+    background: var(--hn-blush);
+    border-color: var(--hn-blush);
+}
+
+.woocommerce nav.woocommerce-pagination ul li span.current,
+.ast-pagination .page-numbers.current {
+    color: var(--hn-cream);
+    background: var(--hn-plum);
+    border-color: var(--hn-plum);
+}
+
+
+/* =========================================================
+   8. TEKİL ÜRÜN
+   ========================================================= */
+
+.woocommerce div.product .product_title {
+    font-size: clamp(2rem, 1.4rem + 2.2vw, 3rem);
+}
+
+.woocommerce div.product p.price,
+.woocommerce div.product span.price {
+    font-size: 1.5rem;
+}
+
+.woocommerce div.product .woocommerce-product-details__short-description {
+    color: var(--hn-text);
+}
+
+.woocommerce div.product div.images img {
+    border-radius: var(--hn-radius-lg);
+}
+
+.woocommerce div.product div.images .flex-control-thumbs img {
+    border-radius: var(--hn-radius);
+    border: 2px solid transparent;
+    transition: border-color var(--hn-ease), opacity var(--hn-ease);
+}
+
+.woocommerce div.product div.images .flex-control-thumbs img.flex-active,
+.woocommerce div.product div.images .flex-control-thumbs img:hover {
+    border-color: var(--hn-rose);
+}
+
+.woocommerce div.product form.cart .button.single_add_to_cart_button {
+    min-height: 48px;
+    padding-inline: 2.2em;
+}
+
+.woocommerce div.product .product_meta {
+    font-size: .9rem;
+    color: var(--hn-text);
+}
+
+.woocommerce div.product .product_meta a {
+    color: var(--hn-plum);
+}
+
+.woocommerce div.product .product_meta a:hover {
+    color: var(--hn-rose);
+}
+
+/* Stok bilgisi. Astra metni p.ast-stock-detail içinde span.stock olarak basıyor
+   ve #77a464 veriyor (kremde 2.7:1). "Tükendi" rose idi (3.1:1): plum yapıldı. */
+.woocommerce div.product :is(p, span).stock {
+    font-weight: 600;
+    color: color-mix(in srgb, var(--hn-sage) 55%, var(--hn-plum));
+}
+
+.woocommerce div.product :is(p, span).stock.out-of-stock {
+    color: var(--hn-plum);
+}
+
+/* Sekmeler */
+.woocommerce div.product .woocommerce-tabs ul.tabs {
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border-bottom: 1px solid var(--hn-border);
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::after {
+    display: none;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li {
+    margin: 0 1.75rem 0 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a {
+    padding: .9rem 0;
+    font-family: var(--hn-font-body);
+    font-weight: 600;
+    color: var(--hn-plum);
+    opacity: .65;
+    transition: opacity var(--hn-ease), color var(--hn-ease);
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:hover {
+    opacity: 1;
+    color: var(--hn-rose);
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active {
+    background: transparent;
+    border-bottom: 2px solid var(--hn-rose);
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a {
+    opacity: 1;
+    color: var(--hn-plum);
+}
+
+/* İlgili / çapraz ürün başlıkları: ortalı + dikiş çizgisi */
+.woocommerce .related.products > h2,
+.woocommerce .upsells.products > h2,
+.woocommerce .cross-sells > h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.woocommerce .related.products > h2::after,
+.woocommerce .upsells.products > h2::after,
+.woocommerce .cross-sells > h2::after {
+    content: "";
+    display: block;
+    width: 72px;
+    margin: .8rem auto 0;
+    border-top: 2px dashed var(--hn-rose);
+}
+
+
+/* =========================================================
+   9. SEPET / ÖDEME / BİLDİRİMLER
+   ========================================================= */
+
+/* Tablolar */
+.woocommerce table.shop_table {
+    background: var(--hn-white);
+    border: 1px solid var(--hn-border);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--hn-radius-lg);
+    overflow: hidden;
+}
+
+.woocommerce table.shop_table th {
+    font-weight: 600;
+    background: var(--hn-cream);
+    color: var(--hn-plum);
+}
+
+.woocommerce table.shop_table td,
+.woocommerce table.shop_table th {
+    border-color: var(--hn-border);
+}
+
+.woocommerce table.shop_table td.product-name a {
+    font-weight: 500;
+}
+
+.woocommerce a.remove {
+    color: var(--hn-rose) !important;
+    border-radius: 50%;
+    transition: background-color var(--hn-ease), color var(--hn-ease);
+}
+
+.woocommerce a.remove:hover {
+    color: var(--hn-white) !important;
+    background: var(--hn-rose) !important;
+}
+
+/* Kupon alanı */
+.woocommerce-cart table.cart td.actions .coupon .input-text {
+    min-width: 170px;
+}
+
+/* Sepet toplamı + ödeme butonları tam genişlik */
+.woocommerce-cart .wc-proceed-to-checkout a.checkout-button,
+.woocommerce #payment #place_order {
+    width: 100%;
+    min-height: 52px;
+    font-size: 1.05rem;
+}
+
+/* Sepet toplamı kartı */
+.woocommerce .cart-collaterals .cart_totals,
+.woocommerce-page .cart-collaterals .cart_totals {
+    padding: 1.5rem;
+    background: var(--hn-white);
+    border: 1px solid var(--hn-border);
+    border-radius: var(--hn-radius-lg);
+}
+
+/* Ödeme alanı */
+.woocommerce-checkout #order_review {
+    padding: 1.5rem;
+    background: var(--hn-white);
+    border: 1px solid var(--hn-border);
+    border-radius: var(--hn-radius-lg);
+}
+
+/* body. öneki: Astra'nın satır içi dinamik CSS'i aynı seçiciyle
+   gri kutu (#efefef) ve 0 dolgu basıyordu. */
+body.woocommerce-checkout #payment {
+    padding: 1rem 1rem 0;
+    background: var(--hn-cream);
+    border-radius: var(--hn-radius);
+}
+
+body.woocommerce-checkout #payment ul.payment_methods {
+    border-bottom: 1px solid var(--hn-border);
+}
+
+/* Astra: ".woocommerce-page.woocommerce-checkout #payment div.payment_box" */
+body.woocommerce-checkout #payment.woocommerce-checkout-payment div.payment_box {
+    color: var(--hn-plum);
+    background-color: var(--hn-blush);
+    border-radius: var(--hn-radius);
+}
+
+body.woocommerce-checkout #payment.woocommerce-checkout-payment div.payment_box::before {
+    border-bottom-color: var(--hn-blush);
+}
+
+body.woocommerce-checkout #payment div.form-row.place-order {
+    padding: 1rem 0;
+}
+
+/* "Your order" başlığı kartın üst kısmı olsun (Astra ayrı gri kutu çiziyordu) */
+.woocommerce-checkout #order_review_heading {
+    margin: 0;
+    padding: 1.5rem 1.5rem .5rem;
+    background: var(--hn-white);
+    border: 1px solid var(--hn-border);
+    border-bottom: 0;
+    border-radius: var(--hn-radius-lg) var(--hn-radius-lg) 0 0;
+}
+
+.woocommerce-checkout #order_review_heading + #order_review {
+    padding-top: 0;
+    border-top: 0;
+    border-radius: 0 0 var(--hn-radius-lg) var(--hn-radius-lg);
+}
+
+/* Özet tablosunda yarısı krem yarısı beyaz hücreler olmasın */
+.woocommerce table.shop_table.woocommerce-checkout-review-order-table :is(thead, tfoot) th {
+    background: transparent;
+}
+
+/* "Ship to a different address?" küçük serif yerine gövde fontu */
+.woocommerce-checkout #ship-to-different-address,
+.woocommerce-checkout #ship-to-different-address label {
+    font-family: var(--hn-font-body) !important;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+.woocommerce-checkout #ship-to-different-address label {
+    display: inline-flex;
+    align-items: center;
+    gap: .5em;
+    cursor: pointer;
+}
+
+/* Radyo / onay kutuları marka renginde */
+.woocommerce :is(input[type="radio"], input[type="checkbox"]),
+.wc-block-components-radio-control__input,
+.wc-block-components-checkbox__input {
+    accent-color: var(--hn-plum);
+}
+
+/* Blok sepet/ödeme: küçük büyük harfli Cormorant okunmuyor */
+.wc-block-cart__totals-title,
+.wc-block-components-title.wc-block-components-title,
+.wc-block-components-checkout-step__title {
+    font-family: var(--hn-font-body) !important;
+    letter-spacing: .08em;
+    font-weight: 600;
+}
+
+.wc-block-cart .wc-block-cart-items th,
+.wc-block-cart__totals-title {
+    font-size: .8rem !important;
+    color: var(--hn-text);
+}
+
+/* Bildirime programatik odak (tabindex=-1) pembe çerçeve çizmesin */
+.woocommerce-notices-wrapper [tabindex="-1"]:focus,
+:is(.woocommerce-message, .woocommerce-info, .woocommerce-error)[tabindex="-1"]:focus {
+    outline: none;
+}
+
+/* Bildirimler (kenarlık, köşe, gölge: ui.css bölüm 9) */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error,
+.woocommerce-noreviews,
+p.no-comments {
+    color: var(--hn-plum);
+    background-color: var(--hn-white);
+}
+
+.woocommerce-message::before {
+    color: var(--hn-sage);
+}
+
+.woocommerce-info::before {
+    color: var(--hn-rose);
+}
+
+.woocommerce-error::before {
+    color: var(--hn-plum);
+}
+
+.woocommerce-message a.button,
+.woocommerce-info a.button {
+    margin-left: 1rem;
+}
+
+
+/* =========================================================
+   10. FOOTER
+   ========================================================= */
+
+/* Astra'nın footer builder satırları [data-section] ile krem zemin basıyordu;
+   aynı seçiciyle eziliyor. */
+.site-footer,
+.site-primary-footer-wrap,
+.site-primary-footer-wrap[data-section="section-primary-footer-builder"],
+.site-below-footer-wrap,
+.site-below-footer-wrap[data-section="section-below-footer-builder"],
+.ast-small-footer {
+    background-color: var(--hn-plum);
+    color: var(--hn-cream);
+}
+
+.site-below-footer-wrap,
+.ast-small-footer {
+    border-top: 1px solid rgba(249, 246, 241, .15);
+}
+
+.site-footer :is(h1, h2, h3, h4, h5, h6),
+.site-footer .widget-title {
+    color: var(--hn-cream);
+}
+
+/* #astra-footer-menu: Astra satır içi CSS'i ID seçiciyle plum basıyordu */
+.site-footer a,
+.site-footer .menu-link,
+.site-footer #astra-footer-menu .menu-item > a,
+.site-footer .ast-footer-copyright,
+.site-footer p {
+    color: var(--hn-cream);
+}
+
+.site-footer #astra-footer-menu .menu-item:hover > a,
+.site-footer #astra-footer-menu .menu-item > a:focus-visible,
+.site-footer #astra-footer-menu .current-menu-item > a {
+    color: var(--hn-blush);
+}
+
+.site-footer a:hover,
+.site-footer a:focus {
+    color: var(--hn-blush);
+}
+
+.site-footer .menu-link {
+    font-size: .95rem;
+}
+
+/* Telif satırı: ortalı, sıkı ve sade.
+   İpucu: Görünüm → Özelleştir → Footer → Copyright içindeki boş
+   satırı (&nbsp;) silersen footer daha da inceltir. */
+.ast-footer-copyright {
+    text-align: center;
+}
+
+.ast-footer-copyright p {
+    margin: 0;
+    font-size: .9rem;
+    line-height: 1.6;
+    letter-spacing: .02em;
+}
+
+.ast-footer-copyright strong {
+    font-weight: 500;
+}
+
+.site-below-footer-wrap[data-section="section-below-footer-builder"] {
+    min-height: 0;
+}
+
+
+/* =========================================================
+   11. MOBİL
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .site-title,
+    .site-title a {
+        font-size: 1.6rem;
+    }
+
+    .woocommerce ul.products li.product .woocommerce-loop-product__title {
+        font-size: 1.2rem;
+    }
+
+    .astra-shop-summary-wrap {
+        padding: 0 .85rem 1rem;
+    }
+
+    .woocommerce div.product form.cart .button.single_add_to_cart_button {
+        flex: 1;
+    }
+
+    .woocommerce-cart table.cart td.actions .coupon .input-text,
+    .woocommerce-cart table.cart td.actions .coupon .button {
+        width: 100%;
+        margin: 0 0 .6rem;
+    }
+
+    .woocommerce-message a.button,
+    .woocommerce-info a.button {
+        margin: .6rem 0 0;
+    }
+
+    /* Sekmeler alt alta dizilmesin, tek satırda kalsın */
+    .woocommerce div.product .woocommerce-tabs ul.tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 1.25rem;
+    }
+
+    .woocommerce div.product .woocommerce-tabs ul.tabs li {
+        margin-right: 0;
+    }
+
+    .woocommerce div.product .woocommerce-tabs ul.tabs li a {
+        padding: .7rem 0;
+    }
+
+    .site-description {
+        font-size: .68rem;
+        letter-spacing: .06em;
+    }
+}
+
+/* ≤1200px: Astra .alignwide bloklara -20px kenar boşluğu veriyor ama genişliği
+   artırmıyor; blok sepet/ödeme sola yapışıp sağda boşluk bırakıyordu. */
+@media (max-width: 1200px) {
+    :is(.ast-separate-container, .ast-plain-container) .entry-content[data-ast-blocks-layout] > :is(.wp-block-woocommerce-cart, .wp-block-woocommerce-checkout).alignwide {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+
+/* =========================================================
+   12. ERİŞİLEBİLİRLİK
+   ========================================================= */
+
+/* body öneki: Astra'nın "a:focus-visible { outline: thin dotted }" kuralı
+   header/menü bağlantılarında noktalı plum çizgi bırakıyordu. */
+body :focus-visible {
+    outline: 2px solid var(--hn-rose);
+    outline-offset: 2px;
+}
+
+.screen-reader-text:focus {
+    color: var(--hn-plum);
+    background: var(--hn-white);
+    box-shadow: var(--hn-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}

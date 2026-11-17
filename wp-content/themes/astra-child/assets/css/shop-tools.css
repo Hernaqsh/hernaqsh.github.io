@@ -1,0 +1,469 @@
+/* =========================================================
+ * HerNaqsh – alışveriş araçları
+ * Arama/filtre çubuğu (inc/shop-filters.php), istek listesi kalpleri ve
+ * sayfası (inc/wishlist.php), WhatsApp butonu (inc/whatsapp.php).
+ * Yalnızca paletteki renkler; kontrast notları satır yanında.
+ * ======================================================= */
+
+/* ---------------------------------------------------------
+ * Filtre çubuğu
+ * ------------------------------------------------------- */
+.hn-filters {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: .75rem 1rem;
+	width: 100%;
+	margin: 0 0 1.5rem;
+	padding: 1rem 1.25rem;
+	border: 1px solid var(--hn-border);
+	border-radius: var(--hn-radius-lg);
+	background: var(--hn-white);
+	font-family: var(--hn-font-body);
+}
+.hn-filters__extra {
+	display: contents;
+}
+.hn-filters__field {
+	display: flex;
+	flex-direction: column;
+	gap: .3rem;
+	flex: 1 1 160px;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+.hn-filters__field--search { flex: 2 1 240px; }
+/* Tema "p" alt boşluğu (≈18px) <p> alanları yukarı itiyor, Price (<div>) aşağıda
+   kalıyordu: tüm alanlar ve buton kutusu sıfır dış boşlukla alttan hizalı. */
+form.hn-filters :is(p.hn-filters__field, p.hn-filters__actions) {
+	margin: 0;
+}
+/* Tüm etiketler aynı yükseklikte, tüm kutular 44px: alanlar alttan
+   hizalandığı için etiketler ve kutular aynı yatay çizgide durur. */
+.hn-filters label,
+.hn-filters .hn-filters__label {
+	display: block;
+	margin: 0;
+	padding: 0;
+	font-size: .85rem;
+	font-weight: 600;
+	line-height: 20px;
+	color: var(--hn-plum);
+}
+.hn-filters :is(input[type="search"], input[type="number"], select) {
+	box-sizing: border-box;
+	width: 100%;
+	height: 44px;
+	min-height: 44px;
+	margin: 0;
+}
+.hn-filters__range {
+	display: flex;
+	align-items: center;
+	gap: .4rem;
+}
+.hn-filters__range input { flex: 1 1 0; width: auto; min-width: 0; }
+.hn-filters__actions {
+	display: flex;
+	align-items: center;
+	gap: .9rem;
+	margin: 0;
+}
+.hn-filters__actions .button {
+	box-sizing: border-box;
+	height: 44px;
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+}
+.hn-filters__clear {
+	font-size: .9rem;
+	color: var(--hn-plum);
+	text-decoration: underline;
+	text-decoration-color: var(--hn-rose);
+	text-underline-offset: 3px;
+}
+/* Masaüstünde gizli; mobilde filtreleri açar. blush / plum 8.9:1 */
+.hn-filters__toggle {
+	display: none;
+	min-height: 44px;
+	padding: 0 1.1rem;
+	border: 1px solid var(--hn-blush);
+	border-radius: var(--hn-radius);
+	background: var(--hn-blush);
+	font-weight: 600;
+	color: var(--hn-plum);
+	cursor: pointer;
+}
+.hn-filters__toggle::after {
+	content: "";
+	display: inline-block;
+	width: .45em;
+	height: .45em;
+	margin-left: .5em;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: translateY(-.2em) rotate(45deg);
+	transition: transform var(--hn-ease);
+}
+.hn-filters.is-open .hn-filters__toggle::after { transform: translateY(.05em) rotate(-135deg); }
+
+@media (max-width: 767px) {
+	.hn-filters { padding: .9rem; gap: .65rem; }
+	.hn-filters__field--search { flex: 1 1 100%; }
+	.hn-filters--js .hn-filters__toggle { display: inline-flex; align-items: center; }
+	.hn-filters--js:not(.is-open) .hn-filters__extra { display: none; }
+	.hn-filters__field { flex: 1 1 100%; }
+	.hn-filters__actions { flex: 1 1 auto; justify-content: flex-end; }
+}
+
+
+/* ---------------------------------------------------------
+ * İstek listesi: kalp butonu
+ * Boş: beyaz zemin, plum çizgi. Dolu: rose dolgu (simge, 3:1 üstü).
+ * ------------------------------------------------------- */
+.hn-wish {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: .5rem;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border: 1px solid var(--hn-border);
+	border-radius: 50%;
+	background: var(--hn-white);
+	color: var(--hn-plum);
+	box-shadow: var(--hn-shadow-sm);
+	cursor: pointer;
+	transition: transform var(--hn-dur-fast) var(--hn-ease-out), background-color var(--hn-dur-fast) var(--hn-ease-out);
+}
+.hn-wish svg {
+	fill: transparent;
+	stroke: currentColor;
+	stroke-width: 1.8;
+	transition: fill var(--hn-dur-fast) var(--hn-ease-out);
+}
+.hn-wish[aria-pressed="true"] svg {
+	fill: var(--hn-rose);
+	stroke: var(--hn-rose);
+}
+.hn-wish:hover { transform: scale(1.06); }
+.hn-wish:focus-visible {
+	outline: 2px solid var(--hn-plum);
+	outline-offset: 2px;
+}
+/* Kartta: görselin sol üst köşesi (sağ üstte Astra'nın sepet ikonu var) */
+.woocommerce ul.products li.product .hn-wish {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 3;
+}
+/* Ürün sayfası: metinli buton. plum / beyaz 11.5:1 */
+.hn-wish--label {
+	width: auto;
+	height: auto;
+	min-height: 44px;
+	margin: 0 0 1.25rem;
+	padding: 0 1rem;
+	border-radius: var(--hn-radius);
+	box-shadow: none;
+	font-family: var(--hn-font-body);
+	font-weight: 600;
+	font-size: .95rem;
+}
+.hn-wish--label:hover { transform: none; background: var(--hn-cream); }
+
+@media (prefers-reduced-motion: reduce) {
+	.hn-wish, .hn-wish svg { transition: none; }
+	.hn-wish:hover { transform: none; }
+}
+
+/* Kısa bildirim: altta ortada. plum / beyaz 11.5:1 */
+.hn-wish-toast {
+	position: fixed;
+	left: 50%;
+	bottom: 24px;
+	z-index: 99;
+	max-width: calc(100% - 32px);
+	padding: .7rem 1.1rem;
+	transform: translate(-50%, 20px);
+	border-radius: var(--hn-radius);
+	background: var(--hn-plum);
+	box-shadow: var(--hn-shadow-hover);
+	font-family: var(--hn-font-body);
+	font-size: .92rem;
+	color: var(--hn-white);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity var(--hn-dur) var(--hn-ease-out), transform var(--hn-dur) var(--hn-ease-out);
+}
+.hn-wish-toast.is-visible {
+	opacity: 1;
+	transform: translate(-50%, 0);
+	pointer-events: auto;
+}
+.hn-wish-toast a {
+	margin-left: .35rem;
+	font-weight: 600;
+	color: var(--hn-white);
+	text-decoration: underline;
+	text-decoration-color: var(--hn-rose);
+	text-underline-offset: 3px;
+}
+
+/* ---------------------------------------------------------
+ * Header: sepetin yanında kalp + sayaç (inc/wishlist.php)
+ * Sepet ikonuyla aynı ölçü (44px yuvarlak) ve aynı rozet:
+ * plum zemin / krem yazı + beyaz halka.
+ * ------------------------------------------------------- */
+#masthead .ast-header-woo-cart {
+	display: flex;
+	align-items: center;
+	gap: .25rem;
+}
+.hn-wish-nav {
+	position: relative;
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	color: var(--hn-plum);
+	transition: background-color var(--hn-dur-fast) var(--hn-ease-out);
+}
+.hn-wish-nav svg {
+	fill: transparent;
+	stroke: currentColor;
+	stroke-width: 1.8;
+}
+.hn-wish-nav:hover,
+.hn-wish-nav:focus-visible {
+	color: var(--hn-plum);
+	background-color: var(--hn-blush);
+}
+.hn-wish-nav:focus-visible {
+	outline: 2px solid var(--hn-rose);
+	outline-offset: 2px;
+}
+/* Listede ürün varsa kalp dolu */
+.hn-wish-nav:has(.hn-wish-nav__count:not([hidden])) svg {
+	fill: var(--hn-rose);
+	stroke: var(--hn-rose);
+}
+.hn-wish-nav .hn-wish-nav__count {
+	position: absolute;
+	top: 3px;
+	right: -1px;
+	min-width: 19px;
+	height: 19px;
+	padding: 0 5px;
+	border-radius: 999px;
+	background: var(--hn-plum);
+	box-shadow: 0 0 0 2px var(--hn-white);
+	font-family: var(--hn-font-body);
+	font-size: .68rem;
+	font-weight: 600;
+	line-height: 19px;
+	text-align: center;
+	color: var(--hn-cream);
+}
+.hn-wish-nav__count[hidden] { display: none; }
+
+/* Mobil menü öğesi: sayaç metnin yanında küçük hap */
+.hn-wish-menu-item .hn-wish-nav__count:not([hidden]) {
+	display: inline-grid;
+	place-items: center;
+	min-width: 22px;
+	height: 22px;
+	margin-left: .5rem;
+	padding: 0 6px;
+	border-radius: 999px;
+	background: var(--hn-plum);
+	font-size: .75rem;
+	font-weight: 600;
+	color: var(--hn-cream);
+}
+
+/* Mobil header: kalp + sepet + menü butonu tek satırda (3 × 44px dokunma
+   hedefi). Astra'nın öğe arası 10px dolgusu kaldırıldı; dar ekranda slogan
+   harf aralığı biraz daraltıldı ki 320–375px'te taşma olmasın. */
+#ast-mobile-header .ast-header-woo-cart .ast-site-header-cart {
+	margin: 0;
+}
+@media (max-width: 921px) {
+	#ast-mobile-header .site-header-primary-section-right > .ast-builder-layout-element {
+		padding-inline: 0;
+	}
+	#ast-mobile-header .ast-header-woo-cart {
+		gap: 0;
+	}
+}
+@media (max-width: 400px) {
+	#ast-mobile-header .site-description {
+		font-size: .55rem;
+		letter-spacing: .02em;
+	}
+}
+/* 320px sınıfı telefonlarda slogan sığmıyor: yalnızca logo yazısı */
+@media (max-width: 359px) {
+	#ast-mobile-header .site-description {
+		display: none;
+	}
+}
+
+/* ---------------------------------------------------------
+ * Wishlist sayfası
+ * Kartlar Shop kartlarıyla aynı (style.css bölüm 7 + ui.css bölüm 7);
+ * burada yalnızca ızgara: mobil 2, tablet 3, masaüstü 4 sütun.
+ * ------------------------------------------------------- */
+.hn-wishlist ul.products {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+	margin: 0;
+}
+.hn-wishlist ul.products::before,
+.hn-wishlist ul.products::after { content: none; }
+.hn-wishlist ul.products li.product {
+	width: auto;
+	margin: 0;
+	float: none;
+}
+@media (min-width: 768px) {
+	.hn-wishlist ul.products {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.5rem;
+	}
+}
+@media (min-width: 922px) {
+	.hn-wishlist ul.products {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 2rem;
+	}
+}
+
+.hn-wishlist__loading { text-align: center; color: var(--hn-text); }
+
+/* Boş durum: Shop'a davet eden sıcak kart */
+.hn-wishlist__empty {
+	max-width: 34rem;
+	margin: 0 auto;
+	padding: clamp(2rem, 1.5rem + 3vw, 3.25rem) 1.5rem;
+	border: 1px solid var(--hn-border);
+	border-radius: var(--hn-radius-xl);
+	background: var(--hn-white);
+	box-shadow: var(--hn-shadow-sm);
+	text-align: center;
+	color: var(--hn-text);
+	animation: hn-rise var(--hn-dur-slow) var(--hn-ease-out) both;
+}
+.hn-wishlist__empty-icon {
+	display: block;
+	margin: 0 auto .75rem;
+	fill: var(--hn-blush);
+	stroke: var(--hn-rose);
+	stroke-width: 1.5;
+}
+.hn-wishlist__empty-title {
+	margin: 0 0 .5rem;
+	font-size: clamp(1.6rem, 1.3rem + 1vw, 2rem);
+}
+.hn-wishlist__empty-title::after {
+	content: "";
+	display: block;
+	width: 56px;
+	margin: .6rem auto 0;
+	border-top: 2px dashed var(--hn-rose);
+}
+.hn-wishlist__empty p { margin: 0 auto 1.25rem; max-width: 28rem; }
+.hn-wishlist__empty p:last-child { margin-bottom: 0; }
+@media (prefers-reduced-motion: reduce) {
+	.hn-wishlist__empty { animation: none; }
+}
+
+
+/* ---------------------------------------------------------
+ * WhatsApp butonu: sağ altta, palet dışı yeşil yok.
+ * plum / beyaz 11.5:1. Çerez şeridi açıkken üstüne çıkar.
+ * ------------------------------------------------------- */
+.hn-wa {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	z-index: 97;
+	display: inline-flex;
+	align-items: center;
+	gap: .5rem;
+	min-height: 52px;
+	padding: 0 1.1rem 0 .9rem;
+	border-radius: 26px;
+	background: var(--hn-plum);
+	box-shadow: var(--hn-shadow-hover);
+	font-family: var(--hn-font-body);
+	font-weight: 600;
+	color: var(--hn-white);
+	text-decoration: none;
+	transition: background-color var(--hn-dur-fast) var(--hn-ease-out), bottom var(--hn-dur) var(--hn-ease-out);
+}
+.hn-wa svg { fill: currentColor; }
+.hn-wa:hover,
+.hn-wa:focus-visible {
+	background: var(--hn-rose);
+	color: var(--hn-white);
+}
+.hn-wa:focus-visible {
+	outline: 2px solid var(--hn-plum);
+	outline-offset: 3px;
+}
+.hn-cookie:not([hidden]) ~ .hn-wa { bottom: 112px; }
+
+/* Mobil: yalnızca simge, ekranı kapatmasın */
+@media (max-width: 600px) {
+	.hn-wa {
+		right: 14px;
+		bottom: max(14px, env(safe-area-inset-bottom));
+		width: 52px;
+		padding: 0;
+		justify-content: center;
+	}
+	.hn-wa__text {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+	}
+	.hn-cookie:not([hidden]) ~ .hn-wa { bottom: 150px; }
+}
+
+
+/* ---------------------------------------------------------
+ * Astra'nın genel button:hover/focus kuralları (rose zemin, beyaz yazı)
+ * bu iki butonu boyamasın: tüm durumlar açıkça yazıldı.
+ * ------------------------------------------------------- */
+button.hn-wish,
+button.hn-wish:hover,
+button.hn-wish:focus,
+button.hn-wish:active {
+	border-color: var(--hn-border);
+	background-color: var(--hn-white);
+	color: var(--hn-plum);
+}
+button.hn-wish--label:hover { background-color: var(--hn-cream); }
+.hn-filters button.hn-filters__toggle,
+.hn-filters button.hn-filters__toggle:hover,
+.hn-filters button.hn-filters__toggle:focus,
+.hn-filters button.hn-filters__toggle:active {
+	border-color: var(--hn-blush);
+	background-color: var(--hn-blush);
+	color: var(--hn-plum);
+}
+.hn-filters button.hn-filters__toggle:focus-visible {
+	outline: 2px solid var(--hn-plum);
+	outline-offset: 2px;
+}

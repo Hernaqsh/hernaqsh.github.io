@@ -1,0 +1,909 @@
+/* =========================================================
+   HERNAQSH — DOKAN + HESABIM STİLLERİ
+   Palet değişkenleri (--hn-*) style.css içinde tanımlıdır.
+   ========================================================= */
+
+:root {
+    /* Dokan'ın kendi buton değişkenleri */
+    --dokan-button-background-color: var(--hn-plum);
+    --dokan-button-text-color: var(--hn-white);
+    --dokan-button-border-color: var(--hn-plum);
+    --dokan-button-hover-background-color: var(--hn-rose);
+    --dokan-button-hover-text-color: var(--hn-white);
+    --dokan-button-hover-border-color: var(--hn-rose);
+}
+
+
+/* =========================================================
+   1. DOKAN PANEL TİPOGRAFİSİ
+   Panel bir uygulama arayüzü: sayılar ve tablolar okunur kalsın diye
+   başlıklar dahil her şey DM Sans. Cormorant sadece vitrin sayfalarında.
+   ========================================================= */
+
+.dokan-layout,
+.dokan-dashboard,
+.dokan-frontend-sidebar,
+aside.dokan-frontend-sidebar,
+.dokan-layout :is(h1, h2, h3, h4, h5, h6),
+.dokan-dashboard :is(h1, h2, h3, h4, h5, h6),
+.dokan-dashboard .entry-title {
+    font-family: var(--hn-font-body) !important;
+    letter-spacing: 0;
+}
+
+/* Butonlar: DM Sans SemiBold */
+html body button.dokan-btn,
+html body button.dokan-btn-secondary,
+html body button.dokan-btn-theme,
+html body a.dokan-btn-theme,
+html body input.dokan-btn-theme,
+html body button.dokan-btn-sm {
+    font-family: var(--hn-font-body);
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   2. MY ACCOUNT
+   ========================================================= */
+
+/* My Account buttons */
+.woocommerce-MyAccount-content .dokan-btn,
+.woocommerce-MyAccount-content .button,
+.woocommerce-account .woocommerce-MyAccount-content a.button {
+    background: var(--hn-plum);
+    background-color: var(--hn-plum);
+    border-color: var(--hn-plum);
+    color: var(--hn-white);
+}
+
+/* My Account button hover */
+.woocommerce-MyAccount-content .dokan-btn:hover,
+.woocommerce-MyAccount-content .button:hover,
+.woocommerce-account .woocommerce-MyAccount-content a.button:hover {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    border-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+}
+
+/* My Account navigation */
+.woocommerce-MyAccount-navigation a {
+    color: var(--hn-plum);
+}
+
+/* Aktif öğe blush zeminde: rose yazı okunmuyordu (≈2.3:1), plum + kalın */
+.woocommerce-MyAccount-navigation li.is-active a {
+    color: var(--hn-plum);
+    font-weight: 600;
+}
+
+.woocommerce-MyAccount-navigation a:hover {
+    color: var(--hn-rose) !important;
+}
+
+/* My Account borders */
+.woocommerce-MyAccount-navigation ul,
+.woocommerce-MyAccount-navigation li {
+    border-color: var(--hn-border) !important;
+}
+
+/* Menü kartı: başlıkla hizalı, beyaz zemin. Dolgu, köşe ve mobil yatay
+   kaydırma ui.css'te (buradaki padding-left:0 + overflow:hidden onları
+   eziyordu: aktif öğe sola yapışıyor, mobilde sekmeler kaydırılamıyordu). */
+.woocommerce-account .woocommerce-MyAccount-navigation ul {
+    margin-left: 0;
+    margin-right: 0;
+    background: var(--hn-white);
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul li a:hover,
+.woocommerce-account .woocommerce-MyAccount-navigation ul li.is-active a {
+    background-color: var(--hn-blush);
+}
+
+/* Hover'da da blush zemin var; rose yazı yerine plum */
+.woocommerce-account .woocommerce-MyAccount-navigation ul li a:hover {
+    color: var(--hn-plum) !important;
+}
+
+/* İçerikteki metin bağlantıları (ör. "Log out") bağlantı gibi görünsün */
+.woocommerce-MyAccount-content p a:not(.button):not(.dokan-btn) {
+    text-decoration: underline;
+    text-decoration-color: var(--hn-rose);
+    text-underline-offset: 3px;
+}
+
+
+/* =========================================================
+   3. DOKAN NEW UI — SIDEBAR
+   ========================================================= */
+
+/* Sidebar background */
+html body aside.dokan-frontend-sidebar {
+    background: var(--hn-plum);
+    background-color: var(--hn-plum);
+    color: var(--hn-white);
+}
+
+/* Sidebar: TÜM yazılar beyaz (a, span, p, div, h*, li, button, label...) */
+html body aside.dokan-frontend-sidebar,
+html body aside.dokan-frontend-sidebar *:not(input):not(textarea):not(select) {
+    color: var(--hn-white) !important;
+}
+
+/* HerNaqsh icon */
+aside.dokan-frontend-sidebar .site-icon {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+}
+
+/* Sidebar bütün ikonlar */
+html body aside.dokan-frontend-sidebar svg,
+html body aside.dokan-frontend-sidebar svg * {
+    color: var(--hn-white);
+    stroke: var(--hn-white);
+}
+
+
+/* =========================================================
+   4. SIDEBAR NORMAL / ACTIVE / HOVER
+   ========================================================= */
+
+/* Normal menü */
+html body aside.dokan-frontend-sidebar a.skip-color-module {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: var(--hn-white) !important;
+    transition: background-color .2s ease;
+}
+
+/* Aktif menü = PEMBE */
+html body aside.dokan-frontend-sidebar a.skip-color-module.active,
+html body aside.dokan-frontend-sidebar a.skip-color-module[data-active="true"] {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+}
+
+/* Hover / klavye focus = PEMBE (yazı ve ikon beyaz kalır) */
+html body aside.dokan-frontend-sidebar a.skip-color-module:hover,
+html body aside.dokan-frontend-sidebar a.skip-color-module:focus-visible,
+html body aside.dokan-frontend-sidebar a.skip-color-module.skip-color-module:hover {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+    outline: none !important;
+}
+
+html body aside.dokan-frontend-sidebar a.skip-color-module:hover *,
+html body aside.dokan-frontend-sidebar a.skip-color-module:focus-visible * {
+    color: var(--hn-white) !important;
+    stroke: var(--hn-white) !important;
+}
+
+
+/* =========================================================
+   5. SETTINGS SUBMENU
+   ========================================================= */
+
+html body aside.dokan-frontend-sidebar nav ul ul a {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: var(--hn-white) !important;
+}
+
+html body aside.dokan-frontend-sidebar nav ul ul a:hover,
+html body aside.dokan-frontend-sidebar nav ul ul a:focus-visible,
+html body aside.dokan-frontend-sidebar nav ul ul a.active,
+html body aside.dokan-frontend-sidebar nav ul ul a[data-active="true"] {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+}
+
+/* Sidebar divider */
+aside.dokan-frontend-sidebar hr {
+    border-color: var(--hn-border) !important;
+    opacity: 0.30 !important;
+}
+
+/* Vendor avatar */
+aside.dokan-frontend-sidebar img {
+    border: 2px solid var(--hn-rose);
+}
+
+/* Scrollbar */
+aside.dokan-frontend-sidebar .dokan-vendor-sidebar-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+aside.dokan-frontend-sidebar .dokan-vendor-sidebar-scroll::-webkit-scrollbar-thumb {
+    background: var(--hn-rose) !important;
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   6. DOKAN REACT — PURPLE PRIMARY BUTTONS
+   Add New Product / Request Withdraw / View Payments
+   ========================================================= */
+
+html body button.dokan-btn.bg-purple-600 {
+    background: var(--hn-plum) !important;
+    background-color: var(--hn-plum) !important;
+    border-color: var(--hn-plum) !important;
+    color: var(--hn-white) !important;
+
+    --tw-ring-color: var(--hn-plum) !important;
+    --tw-ring-opacity: 0 !important;
+
+    box-shadow: none !important;
+}
+
+/* Focus (odak halkası bölüm 14'te, :focus-visible) */
+html body button.dokan-btn.bg-purple-600:focus {
+    background: var(--hn-plum) !important;
+    background-color: var(--hn-plum) !important;
+    border-color: var(--hn-plum) !important;
+    color: var(--hn-white) !important;
+    box-shadow: none !important;
+}
+
+/* Click */
+html body button.dokan-btn.bg-purple-600:active {
+    background: var(--hn-plum) !important;
+    background-color: var(--hn-plum) !important;
+    border-color: var(--hn-plum) !important;
+    color: var(--hn-white) !important;
+}
+
+/* Hover = PEMBE */
+html body button.dokan-btn.bg-purple-600:hover {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    border-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+    box-shadow: none !important;
+}
+
+/* Icon */
+html body button.dokan-btn.bg-purple-600 svg,
+html body button.dokan-btn.bg-purple-600 svg * {
+    color: var(--hn-white) !important;
+    stroke: var(--hn-white) !important;
+}
+
+
+/* =========================================================
+   7. EXPORT ALL BUTTON
+   ========================================================= */
+
+html body button.dokan-btn-secondary.bg-blue-600,
+html body button.dokan-btn-secondary {
+    background: var(--hn-plum) !important;
+    background-color: var(--hn-plum) !important;
+    border-color: var(--hn-plum) !important;
+    color: var(--hn-white) !important;
+
+    --tw-ring-color: var(--hn-plum) !important;
+    --tw-ring-opacity: 0 !important;
+
+    box-shadow: none !important;
+}
+
+/* Focus (odak halkası bölüm 14'te, :focus-visible) */
+html body button.dokan-btn-secondary.bg-blue-600:focus,
+html body button.dokan-btn-secondary:focus {
+    background: var(--hn-plum) !important;
+    background-color: var(--hn-plum) !important;
+    border-color: var(--hn-plum) !important;
+    color: var(--hn-white) !important;
+    box-shadow: none !important;
+}
+
+/* Click */
+html body button.dokan-btn-secondary.bg-blue-600:active,
+html body button.dokan-btn-secondary:active {
+    background: var(--hn-plum) !important;
+    background-color: var(--hn-plum) !important;
+    border-color: var(--hn-plum) !important;
+    color: var(--hn-white) !important;
+}
+
+/* Hover = PEMBE */
+html body button.dokan-btn-secondary.bg-blue-600:hover,
+html body button.dokan-btn-secondary:hover {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    border-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+    box-shadow: none !important;
+}
+
+/* Icon */
+html body button.dokan-btn-secondary svg,
+html body button.dokan-btn-secondary svg * {
+    color: var(--hn-white) !important;
+    stroke: var(--hn-white) !important;
+}
+
+
+/* =========================================================
+   8. CLASSIC DOKAN BUTTONS
+   Update Settings / Manage vb.
+   ========================================================= */
+
+html body button.dokan-btn-theme,
+html body input.dokan-btn-theme,
+html body a.dokan-btn-theme,
+html body button.dokan-btn-sm,
+html body .dokan-update-setting-top-button,
+html body input[name="dokan_update_store_settings"] {
+    background: var(--hn-plum);
+    background-color: var(--hn-plum);
+    border-color: var(--hn-plum);
+    color: var(--hn-white);
+}
+
+/* Focus */
+html body button.dokan-btn-theme:focus,
+html body input.dokan-btn-theme:focus,
+html body a.dokan-btn-theme:focus,
+html body button.dokan-btn-sm:focus,
+html body .dokan-update-setting-top-button:focus,
+html body input[name="dokan_update_store_settings"]:focus {
+    background: var(--hn-plum) !important;
+    background-color: var(--hn-plum) !important;
+    border-color: var(--hn-plum) !important;
+    color: var(--hn-white) !important;
+    box-shadow: none !important;
+}
+
+/* Hover = PEMBE */
+html body button.dokan-btn-theme:hover,
+html body input.dokan-btn-theme:hover,
+html body a.dokan-btn-theme:hover,
+html body button.dokan-btn-sm:hover,
+html body .dokan-update-setting-top-button:hover,
+html body input[name="dokan_update_store_settings"]:hover {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    border-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+}
+
+
+/* =========================================================
+   9. DOKAN TABS / FILTERS
+   ========================================================= */
+
+/* Primary/purple text (sidebar dışında) */
+.text-purple-600,
+.text-purple-700,
+.text-primary-500,
+.text-primary-600 {
+    color: var(--hn-plum) !important;
+}
+
+/* Hover text */
+.hover\:text-purple-600:hover,
+.hover\:text-purple-700:hover,
+.hover\:text-primary-500:hover,
+.hover\:text-primary-600:hover {
+    color: var(--hn-rose) !important;
+}
+
+/* Active tabs */
+[role="tab"][aria-selected="true"],
+[role="tab"][data-state="active"],
+[role="tab"][data-active="true"] {
+    color: var(--hn-plum);
+    border-color: var(--hn-plum);
+}
+
+/* Tab hover */
+[role="tab"]:hover {
+    color: var(--hn-rose) !important;
+    border-color: var(--hn-rose) !important;
+}
+
+
+/* =========================================================
+   10. DOKAN UTILITY COLOR CLEANUP
+   ========================================================= */
+
+/* Primary background */
+/* !important gerekli: sidebar zemini de bu Tailwind sınıfından geliyor */
+.bg-primary-500,
+.bg-primary-600 {
+    background: var(--hn-plum) !important;
+    background-color: var(--hn-plum) !important;
+}
+
+/* Primary border */
+.border-primary-500,
+.border-primary-600 {
+    border-color: var(--hn-plum) !important;
+}
+
+/* Primary hover (sidebar dışı yerler için) */
+.hover\:bg-primary-hover:hover,
+.hover\:bg-primary-500:hover,
+.hover\:bg-primary-600:hover,
+.hover\:bg-purple-700:hover,
+.hover\:bg-blue-700:hover {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+}
+
+
+/* =========================================================
+   11. DOKAN FORM FOCUS
+   ========================================================= */
+
+body [class*="dokan"] input:focus,
+body [class*="dokan"] textarea:focus,
+body [class*="dokan"] select:focus {
+    border-color: var(--hn-rose) !important;
+    outline-color: var(--hn-rose) !important;
+    --tw-ring-color: var(--hn-rose) !important;
+}
+
+
+/* Panel mobil: WC Admin filtre satırı -8px taşıyıp "Date range"
+   etiketini kırpıyordu; grafik açıklama satırı da karttan taşıyordu. */
+@media (max-width: 782px) {
+    .dokan-dashboard-content .woocommerce-filters {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .dokan-dashboard-content .woocommerce-legend,
+    .dokan-dashboard-content .woocommerce-chart__footer {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+
+/* =========================================================
+   12. WOOCOMMERCE FRONTEND BUTTONS
+   ========================================================= */
+
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit {
+    background: var(--hn-plum) !important;
+    background-color: var(--hn-plum) !important;
+    border-color: var(--hn-plum) !important;
+    color: var(--hn-white) !important;
+}
+
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce #respond input#submit:hover {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    border-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+}
+
+
+/* =========================================================
+   13. FINAL HOVER OVERRIDES
+   Bunlar özellikle dosyanın EN SONUNDA kalmalı.
+   Sınıflar iki kez yazılarak specificity yükseltildi,
+   böylece Dokan/Tailwind hover kuralları ezilir.
+   ========================================================= */
+
+/* Sidebar hover */
+html body aside.dokan-frontend-sidebar a.skip-color-module.skip-color-module:hover,
+html body aside.dokan-frontend-sidebar a.skip-color-module.skip-color-module:focus-visible {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+}
+
+/* Add Product / Withdraw / View Payments hover */
+html body button.dokan-btn.bg-purple-600.bg-purple-600:hover {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    border-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+}
+
+/* Export All hover */
+html body button.dokan-btn-secondary.dokan-btn-secondary:hover,
+html body button.dokan-btn-secondary.bg-blue-600.bg-blue-600:hover {
+    background: var(--hn-rose) !important;
+    background-color: var(--hn-rose) !important;
+    border-color: var(--hn-rose) !important;
+    color: var(--hn-white) !important;
+}
+
+
+/* =========================================================
+   14. PANEL — MODERN ARAYÜZ
+   Kapsam: #dokan-dashboard-fullwidth-wrapper
+   (#dokan-vendor-dashboard-layout-root = .dokan-layout yalnızca sidebar
+   ve üst barı sarıyor; analitik içerik .dokan-dashboard-wrap içinde.)
+   ID kapsamı WC Admin / Tailwind sınıflarını !important olmadan ezer.
+   Hareket/gölge değişkenleri assets/css/ui.css içinde.
+   ========================================================= */
+
+#dokan-dashboard-fullwidth-wrapper {
+    --hn-panel-gap: clamp(1rem, .75rem + 1vw, 1.5rem);
+}
+
+#dokan-dashboard-fullwidth-wrapper .dokan-dashboard-content {
+    background-color: var(--hn-cream);
+}
+
+/* ---- Başlık hiyerarşisi ----
+   Overview (sayfa) > Performance / Charts (bölüm) > kart başlığı */
+#dokan-dashboard-fullwidth-wrapper .woocommerce-layout__header {
+    min-height: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-layout__header-wrapper {
+    padding: 0;
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-layout__header .entry-title {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--hn-plum);
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-section-header {
+    align-items: center;
+    min-height: 0;
+    margin-top: calc(var(--hn-panel-gap) * 1.75);
+    padding-left: 0;
+    padding-right: 0;
+    border: 0;
+}
+
+/* Alt boşluk: interval seçicili başlıkta WC mobilde seçiciyi başlığın altına
+   konumlandırıp yer ayırıyor; o başlığın alt boşluğuna dokunma. */
+#dokan-dashboard-fullwidth-wrapper .woocommerce-section-header:not(.has-interval-select) {
+    margin-bottom: var(--hn-panel-gap);
+}
+
+/* Mobil: WC "By day" seçicisini top:18px ile başlığın üstüne bindiriyordu;
+   başlığın altına alınıp yer açıldı. */
+@media (max-width: 782px) {
+    #dokan-dashboard-fullwidth-wrapper .woocommerce-section-header.has-interval-select {
+        margin-bottom: calc(42px + var(--hn-panel-gap) * 1.5);
+        padding-bottom: 0;
+    }
+
+    #dokan-dashboard-fullwidth-wrapper .woocommerce-section-header.has-interval-select .woocommerce-chart__interval-select {
+        top: calc(100% + .75rem);
+        left: 0;
+        width: auto;
+        right: auto;
+    }
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-section-header__title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0;
+    color: var(--hn-plum);
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-section-header hr {
+    border-color: var(--hn-border);
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-chart__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--hn-plum);
+}
+
+/* ---- Tarih aralığı ve açılır kontroller ---- */
+#dokan-dashboard-fullwidth-wrapper .woocommerce-filters-filter .woocommerce-dropdown-button,
+#dokan-dashboard-fullwidth-wrapper .woocommerce-chart__interval-select {
+    background-color: var(--hn-white);
+    border: 1px solid var(--hn-border);
+    border-radius: var(--hn-radius-md);
+    transition: border-color var(--hn-dur-fast) var(--hn-ease-out);
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-filters-filter .woocommerce-dropdown-button:hover {
+    border-color: var(--hn-rose);
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-filters-label {
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--hn-text);
+}
+
+/* ---- İstatistik kartları ---- */
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: var(--hn-panel-gap);
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item-container {
+    margin: 0;
+    border: 0;
+    background: transparent;
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    height: 100%;
+    padding: 1.1rem 1.25rem 1.2rem;
+    background-color: var(--hn-white);
+    border: 1px solid var(--hn-border);
+    border-radius: var(--hn-radius-lg);
+    box-shadow: var(--hn-shadow-sm);
+    text-decoration: none;
+    transition:
+        transform var(--hn-dur) var(--hn-ease-out),
+        border-color var(--hn-dur) var(--hn-ease-out);
+}
+
+/* Derin gölge katmanı: opacity ile açılır (box-shadow animasyonu yok) */
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: var(--hn-shadow-lg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--hn-dur) var(--hn-ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    #dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item:hover {
+        transform: translate3d(0, -4px, 0);
+        border-color: var(--hn-blush);
+    }
+
+    #dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item:hover::after {
+        opacity: 1;
+    }
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item:focus-visible {
+    outline: 2px solid var(--hn-rose);
+    outline-offset: 2px;
+}
+
+/* Grafikte gösterilen (seçili) kart: rose üst çizgi */
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item-container.is-selected .woocommerce-summary__item {
+    border-color: var(--hn-rose);
+    box-shadow: inset 0 3px 0 var(--hn-rose), var(--hn-shadow-sm);
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item-label,
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item-label .components-text {
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--hn-text);
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item-data {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item-value,
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item-value .components-text {
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--hn-plum);
+    font-variant-numeric: tabular-nums;
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item-delta {
+    padding: .2rem .55rem;
+    background-color: var(--hn-cream);
+    border: 1px solid var(--hn-border);
+    border-radius: 999px;
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item-delta .components-text {
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--hn-text);
+}
+
+/* ---- Grafik kartları ----
+   Dış kart WC'nin components-card'ı (7px köşe + gri halka); içteki
+   .woocommerce-chart da kart gibi çizilince iç içe sert kutu oluşuyordu.
+   Kart görünümü dışa taşındı, iç grafik düz. */
+#dokan-dashboard-fullwidth-wrapper .woocommerce-dashboard__chart-block {
+    background-color: var(--hn-white);
+    border-radius: var(--hn-radius-lg);
+    box-shadow: inset 0 0 0 1px var(--hn-border), var(--hn-shadow-sm);
+    overflow: hidden;
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-dashboard__chart-block .components-card__header {
+    box-shadow: inset 0 -1px 0 var(--hn-border);
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-chart {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-chart__header,
+#dokan-dashboard-fullwidth-wrapper .woocommerce-chart__footer {
+    border-color: var(--hn-border);
+}
+
+#dokan-dashboard-fullwidth-wrapper .woocommerce-chart__body,
+#dokan-dashboard-fullwidth-wrapper .woocommerce-chart__footer {
+    background-color: var(--hn-white);
+}
+
+/* Boş durum ("No data for the selected date range") */
+#dokan-dashboard-fullwidth-wrapper .d3-chart__empty-message {
+    font-size: .95rem;
+    font-weight: 500;
+    color: var(--hn-text);
+}
+
+/* ---- Uyarılar ---- */
+#dokan-dashboard-fullwidth-wrapper .dokan-alert {
+    border-radius: var(--hn-radius-md);
+    box-shadow: var(--hn-shadow-sm);
+}
+
+/* ---- Sidebar: akıcı geçiş + ikon hareketi (renkler bölüm 3–5'te) ---- */
+#dokan-vendor-dashboard-layout-root aside.dokan-frontend-sidebar a.skip-color-module {
+    min-height: 44px;
+    transition:
+        background-color var(--hn-dur) var(--hn-ease-out),
+        color var(--hn-dur) var(--hn-ease-out);
+}
+
+#dokan-vendor-dashboard-layout-root aside.dokan-frontend-sidebar a.skip-color-module svg {
+    transition: transform var(--hn-dur) var(--hn-ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    #dokan-vendor-dashboard-layout-root aside.dokan-frontend-sidebar a.skip-color-module:hover svg {
+        transform: translateX(2px);
+    }
+}
+
+#dokan-vendor-dashboard-layout-root aside.dokan-frontend-sidebar a.skip-color-module:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--hn-blush);
+}
+
+/* Mobilde kapalı sidebar w-0; altındaki avatarın rose kenarlığı
+   ekranın solunda 4px'lik bir çubuk olarak görünüyordu. */
+#dokan-vendor-dashboard-layout-root aside.dokan-frontend-sidebar.w-0 {
+    overflow: hidden;
+}
+
+/* ---- Klasik sayfalar (Products, Orders, Withdraw, Settings) ----
+   style.css'teki ".entry-title" ve ".entry-content h2" vitrin boyutları
+   (clamp ile 3.5rem'e kadar) panele bulaşıyordu. Overview ile aynı ölçek. */
+#dokan-dashboard-fullwidth-wrapper .dokan-dashboard-header .entry-title {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+#dokan-dashboard-fullwidth-wrapper .dokan-dashboard-header .entry-title :is(small, span, a) {
+    font-size: .7em;
+    font-weight: 500;
+}
+
+#dokan-dashboard-fullwidth-wrapper .dokan-dashboard-content article :is(h2, h3) {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+#dokan-dashboard-fullwidth-wrapper .dokan-dashboard-content article :is(h4, h5, h6) {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* Yardım metni #888 (kremde ≈3.3:1) */
+#dokan-dashboard-fullwidth-wrapper .dokan-page-help {
+    color: var(--hn-text);
+}
+
+#dokan-dashboard-fullwidth-wrapper .dokan-panel {
+    border-color: var(--hn-border);
+    border-radius: var(--hn-radius-md);
+    box-shadow: var(--hn-shadow-sm);
+    overflow: hidden;
+}
+
+#dokan-dashboard-fullwidth-wrapper .dokan-panel-heading {
+    color: var(--hn-plum);
+    font-weight: 600;
+    background-color: var(--hn-cream);
+    border-color: var(--hn-border);
+}
+
+/* Sınıfsız .dokan-btn (Request Withdraw, View Payments) gri kalıyordu */
+#dokan-dashboard-fullwidth-wrapper .dokan-btn:not(.dokan-btn-default, [class*="bg-"]) {
+    color: var(--hn-white);
+    background-color: var(--hn-plum);
+    border-color: var(--hn-plum);
+}
+
+#dokan-dashboard-fullwidth-wrapper .dokan-btn:not(.dokan-btn-default, [class*="bg-"]):hover {
+    color: var(--hn-white);
+    background-color: var(--hn-rose);
+    border-color: var(--hn-rose);
+}
+
+#dokan-dashboard-fullwidth-wrapper .dokan-btn.dokan-btn-default {
+    color: var(--hn-plum);
+    background-color: var(--hn-white);
+    border-color: var(--hn-border);
+}
+
+#dokan-dashboard-fullwidth-wrapper .dokan-btn.dokan-btn-default:hover:not(:disabled) {
+    border-color: var(--hn-rose);
+}
+
+#dokan-dashboard-fullwidth-wrapper .dokan-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* Klavye odak halkası (üstteki :focus kuralları yalnızca Tailwind
+   ring'ini kapatır; halka burada geri gelir). !important gerekli:
+   üst bar bağlantıları Tailwind "focus:outline-none!" taşıyor. */
+#dokan-dashboard-fullwidth-wrapper :is(.dokan-btn, .dokan-btn-theme, .dokan-btn-secondary):focus-visible,
+#dokan-vendor-dashboard-layout-root a:not(aside .skip-color-module):focus-visible {
+    outline: 2px solid var(--hn-rose) !important;
+    outline-offset: 2px;
+}
+
+/* Plum sidebar üzerinde (logo bağlantısı) blush halka */
+#dokan-vendor-dashboard-layout-root aside.dokan-frontend-sidebar a:not(.skip-color-module):focus-visible {
+    outline-color: var(--hn-blush) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #dokan-dashboard-fullwidth-wrapper .woocommerce-summary__item:hover,
+    #dokan-vendor-dashboard-layout-root aside.dokan-frontend-sidebar a.skip-color-module:hover svg {
+        transform: none;
+    }
+}
